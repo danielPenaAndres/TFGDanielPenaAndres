@@ -30,7 +30,7 @@
     <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
-        <property name="jdbcUrl" value="jdbc:postgresql://xllyqtckglwhth:377b05640c26e7ed816cd57c15d371a3836c715088a18e11ad62d9a9dd787fc6@ec2-44-199-26-122.compute-1.amazonaws.com:5432/d9codghc888l1q" />
+        <property name="jdbcUrl" value="jdbc:postgresql://xllyqtckglwhth:377b05640c26e7ed816cd57c15d371a3836c715088a18e11ad62d9a9dd787fc6@ec2-44-199-26-122.compute-1.amazonaws.com:5432/d9codghc888l1q.gestionpedidoscrud" />
         <property name="user" value="xllyqtckglwhth" />
         <property name="password" value="377b05640c26e7ed816cd57c15d371a3836c715088a18e11ad62d9a9dd787fc6" />
 

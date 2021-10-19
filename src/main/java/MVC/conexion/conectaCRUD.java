@@ -19,7 +19,7 @@ public class conectaCRUD extends HttpServlet {
     @Override
     @RequestMapping("/conecta2")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String jdbcURL="jdbc:postgresql://xllyqtckglwhth:377b05640c26e7ed816cd57c15d371a3836c715088a18e11ad62d9a9dd787fc6@ec2-44-199-26-122.compute-1.amazonaws.com:5432/d9codghc888l1q";
+        String jdbcURL="jdbc:postgresql://xllyqtckglwhth:377b05640c26e7ed816cd57c15d371a3836c715088a18e11ad62d9a9dd787fc6@ec2-44-199-26-122.compute-1.amazonaws.com:5432/d9codghc888l1q.gestionpedidoscrud";
         String usuario="xllyqtckglwhth";
         String contra="377b05640c26e7ed816cd57c15d371a3836c715088a18e11ad62d9a9dd787fc6";
         String driver="org.postgresql.Driver";
