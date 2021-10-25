@@ -10,7 +10,7 @@
 <body>
 
 <h1>Lista de Pacientes</h1>
-
+<div>
 <table border="1">
     <tr>
         <th>Nombre</th>
@@ -38,6 +38,9 @@
 </table>
 
 <br>
+    <div style="text-align:center;">
 <input type="button" value="Agregar nuevo paciente" onclick="window.location.href='muestraFormularioAgregar'; return false; "/>
+    </div>
+</div>
 </body>
 </html>
