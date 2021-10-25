@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/cliente")
+@RequestMapping("/paciente")
 public class ControladorCRUD {
 
     @RequestMapping("/lista")
