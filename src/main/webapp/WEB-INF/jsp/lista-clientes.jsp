@@ -20,10 +20,10 @@
         <th>Eliminar</th>
     </tr>
     <c:forEach var="clienteTemp" items="${clientes}">
-        <c:url var="linkActualizar" value="/cliente/muestraFormularioActualizar">
+        <c:url var="linkActualizar" value="/paciente/muestraFormularioActualizar">
             <c:param name="clienteId" value="${clienteTemp.id}"/>
         </c:url>
-        <c:url var="linkEliminar" value="/cliente/eliminar">
+        <c:url var="linkEliminar" value="/paciente/eliminar">
             <c:param name="clienteId" value="${clienteTemp.id}"/>
         </c:url>
         <tr>

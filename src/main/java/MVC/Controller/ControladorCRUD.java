@@ -36,7 +36,7 @@ public class ControladorCRUD {
     @PostMapping("insertarCliente")
     public String insertarCliente(@ModelAttribute("cliente") Cliente elCliente){
         ClienteDAO.insertarClientes(elCliente);
-        return "redirect:/cliente/lista";
+        return "redirect:/paciente/lista";
     }
     @GetMapping("muestraFormularioActualizar")
     public String muestraFormularioActualizar(@RequestParam("clienteId") long id,Model modelo){
@@ -52,7 +52,7 @@ public class ControladorCRUD {
         //Eliminar cliente
         ClienteDAO.eliminarCliente(id);
         //Reddirecionnar a lista clientes
-        return "redirect:/cliente/lista";
+        return "redirect:/paciente/lista";
     }
 
     @Autowired
