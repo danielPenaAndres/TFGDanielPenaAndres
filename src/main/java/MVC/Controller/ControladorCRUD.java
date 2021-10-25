@@ -48,7 +48,7 @@ public class ControladorCRUD {
         return "formularioCliente";
     }
     @GetMapping("eliminar")
-    public String eliminarCliente(@RequestParam("clienteId") int id){
+    public String eliminarCliente(@RequestParam("clienteId") long id){
         //Eliminar cliente
         ClienteDAO.eliminarCliente(id);
         //Reddirecionnar a lista clientes
