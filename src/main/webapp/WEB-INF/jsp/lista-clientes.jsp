@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h1>Lista de Clientes</h1>
+<h1>Lista de Pacientes</h1>
 
 <table border="1">
     <tr>
@@ -38,6 +38,6 @@
 </table>
 
 <br>
-<input type="button" value="Agregar Cliente" onclick="window.location.href='muestraFormularioAgregar'; return false; "/>
+<input type="button" value="Agregar nuevo paciente" onclick="window.location.href='muestraFormularioAgregar'; return false; "/>
 </body>
 </html>
