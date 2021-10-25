@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class loginConAspectos {
-   // @Pointcut("execution(public * insertaCliente*(..))")
+   // @Pointcut("execution(public * insertapaciente*(..))")
     @Pointcut("execution(* AOP.DAO.*.*(..))")
-    private void paraClientes(){}
+    private void parapacientes(){}
 
 
     //Pointcut getters
@@ -24,22 +24,22 @@ public class loginConAspectos {
 
 
     //Pointcut combinacion
-    @Pointcut("paraClientes()&&!(paraSetters())")
+    @Pointcut("parapacientes()&&!(paraSetters())")
     private void paraCombinacion(){};
 
 
-    //@Before("paraClientes()")
+    //@Before("parapacientes()")
     @Before("paraCombinacion()")
-    public void antesInsertarCliente(){
+    public void antesInsertarpaciente(){
         System.out.println("el usuario esta logeado");
         System.out.println("El login es correcto");
     }
-    //@Before("paraClientes()")
-    public void requisitosCliente(){
-        System.out.println("El cliente cumple los requisitos para ser insertado en la BBDD");
+    //@Before("parapacientes()")
+    public void requisitospaciente(){
+        System.out.println("El paciente cumple los requisitos para ser insertado en la BBDD");
     }
-    //@Before("paraClientes()")
+    //@Before("parapacientes()")
     public void requisitosTabla(){
-        System.out.println("Hay menos de 3000 registros, Puedes insertar el nuevo cliente");
+        System.out.println("Hay menos de 3000 registros, Puedes insertar el nuevo paciente");
     }
 }

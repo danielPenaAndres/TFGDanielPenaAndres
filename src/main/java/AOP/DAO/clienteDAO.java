@@ -1,35 +1,35 @@
 package AOP.DAO;
 
-import AOP.Cliente;
+import AOP.paciente;
 import org.springframework.stereotype.Component;
 
 @Component
-public class clienteDAO {
-    public void insertaCliente(Cliente elCliente, String tipo){
-        System.out.println("Cliente Insertado con exito");
+public class pacienteDAO {
+    public void insertapaciente(paciente elpaciente, String tipo){
+        System.out.println("paciente Insertado con exito");
 
     }
 
-    public String getValoracionClienteNormal() {
-        System.out.println("Obteniendo valoracion del Cliente");
-        return valoracionClienteNormal;
+    public String getValoracionpacienteNormal() {
+        System.out.println("Obteniendo valoracion del paciente");
+        return valoracionpacienteNormal;
     }
 
-    public void setValoracionClienteNormal(String valoracionClienteNormal) {
-        System.out.println("Estableciendo valoracion del Cliente");
-        this.valoracionClienteNormal = valoracionClienteNormal;
+    public void setValoracionpacienteNormal(String valoracionpacienteNormal) {
+        System.out.println("Estableciendo valoracion del paciente");
+        this.valoracionpacienteNormal = valoracionpacienteNormal;
     }
 
-    public String getCodigoClienteNormal() {
-        System.out.println("Obteniendo codigo del Cliente");
-        return codigoClienteNormal;
+    public String getCodigopacienteNormal() {
+        System.out.println("Obteniendo codigo del paciente");
+        return codigopacienteNormal;
     }
 
-    public void setCodigoClienteNormal(String codigoClienteNormal) {
-        System.out.println("Estableciendo codigo del Cliente");
-        this.codigoClienteNormal = codigoClienteNormal;
+    public void setCodigopacienteNormal(String codigopacienteNormal) {
+        System.out.println("Estableciendo codigo del paciente");
+        this.codigopacienteNormal = codigopacienteNormal;
     }
 
-    private String valoracionClienteNormal;
-    private String codigoClienteNormal;
+    private String valoracionpacienteNormal;
+    private String codigopacienteNormal;
 }

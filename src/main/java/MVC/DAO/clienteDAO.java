@@ -1,16 +1,16 @@
 package MVC.DAO;
 
-import MVC.Entity.Cliente;
+import MVC.Entity.paciente;
 
 import java.util.List;
 
-public interface clienteDAO {
-    public void insertarClientes(Cliente elCliente);
+public interface pacienteDAO {
+    public void insertarpacientes(paciente elpaciente);
 
-    public List<Cliente> getClientes();
+    public List<paciente> getpacientes();
 
 
-    public Cliente getCliente(long id);
+    public paciente getpaciente(long id);
 
-    public void eliminarCliente(long id);
+    public void eliminarpaciente(long id);
 }

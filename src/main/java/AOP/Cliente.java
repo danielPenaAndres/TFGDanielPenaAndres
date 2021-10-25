@@ -1,6 +1,6 @@
 package AOP;
 
-public class Cliente {
+public class paciente {
 
     public String getNombre() {
         return nombre;

@@ -3,9 +3,9 @@ package AOP.DAO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class clienteVIPDAO {
+public class pacienteVIPDAO {
 
-    public void insertaClienteVIP(){
-        System.out.println("Cliente VIP Insertado con exito");
+    public void insertapacienteVIP(){
+        System.out.println("paciente VIP Insertado con exito");
     }
 }

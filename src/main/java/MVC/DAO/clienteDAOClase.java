@@ -1,6 +1,6 @@
 package MVC.DAO;
 
-import MVC.Entity.Cliente;
+import MVC.Entity.paciente;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,17 +13,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public class clienteDAOClase implements clienteDAO{
+public class pacienteDAOClase implements pacienteDAO{
 
     @Override
     @Transactional
-    public void insertarClientes(Cliente elCliente) {
+    public void insertarpacientes(paciente elpaciente) {
         try {
             Session miSesion=sessionFactory.openSession();
-            //Insertar el cliente
-            //miSesion.save(elCliente);
+            //Insertar el paciente
+            //miSesion.save(elpaciente);
             Transaction tx = miSesion.beginTransaction();
-            miSesion.saveOrUpdate(elCliente);
+            miSesion.saveOrUpdate(elpaciente);
             tx.commit();
 
         } catch (HibernateException e) {
@@ -33,34 +33,34 @@ public class clienteDAOClase implements clienteDAO{
 
     @Override
     @Transactional
-    public List<Cliente> getClientes() {
+    public List<paciente> getpacientes() {
         //Obtenser Session
         Session miSesion=sessionFactory.openSession();
         //Crear Consulta
-        Query<Cliente> miQuery=miSesion.createQuery("from Cliente",Cliente.class);
+        Query<paciente> miQuery=miSesion.createQuery("from paciente",paciente.class);
          //ejecutar query
-        List<Cliente> clientes=miQuery.getResultList();
+        List<paciente> pacientes=miQuery.getResultList();
 
-        return clientes;
+        return pacientes;
     }
 
     @Override
     @Transactional
-    public Cliente getCliente(long id) {
+    public paciente getpaciente(long id) {
         Session miSesion=sessionFactory.openSession();
-        //Obterner informacion del cliente selecionado
-        Cliente elCliente=miSesion.get(Cliente.class,id);
-        return elCliente;
+        //Obterner informacion del paciente selecionado
+        paciente elpaciente=miSesion.get(paciente.class,id);
+        return elpaciente;
     }
 
     @Override
     @Transactional
-    public void eliminarCliente(long id) {
+    public void eliminarpaciente(long id) {
         Session miSesion=sessionFactory.openSession();
         Transaction tx = miSesion.beginTransaction();
-        //Borrar el cliente de la base de datos usando su id correspondiente
-        Query consulta=miSesion.createQuery("delete from Cliente where id=:idDelCliente");
-        consulta.setParameter("idDelCliente",id);
+        //Borrar el paciente de la base de datos usando su id correspondiente
+        Query consulta=miSesion.createQuery("delete from paciente where id=:idDelpaciente");
+        consulta.setParameter("idDelpaciente",id);
         consulta.executeUpdate();
         tx.commit();
     }
