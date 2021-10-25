@@ -46,7 +46,7 @@ public class clienteDAOClase implements clienteDAO{
 
     @Override
     @Transactional
-    public Cliente getCliente(int id) {
+    public Cliente getCliente(long id) {
         Session miSesion=sessionFactory.openSession();
         //Obterner informacion del cliente selecionado
         Cliente elCliente=miSesion.get(Cliente.class,id);
@@ -55,7 +55,7 @@ public class clienteDAOClase implements clienteDAO{
 
     @Override
     @Transactional
-    public void eliminarCliente(int id) {
+    public void eliminarCliente(long id) {
         Session miSesion=sessionFactory.openSession();
         Transaction tx = miSesion.beginTransaction();
         //Borrar el cliente de la base de datos usando su id correspondiente

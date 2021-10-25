@@ -39,7 +39,7 @@ public class ControladorCRUD {
         return "redirect:/cliente/lista";
     }
     @GetMapping("muestraFormularioActualizar")
-    public String muestraFormularioActualizar(@RequestParam("clienteId") int id,Model modelo){
+    public String muestraFormularioActualizar(@RequestParam("clienteId") long id,Model modelo){
         //Obtener cliente
         Cliente elCliente=ClienteDAO.getCliente(id);
         //Obtener el cliente como atributo del modelo
