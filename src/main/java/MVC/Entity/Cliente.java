@@ -3,9 +3,9 @@ package MVC.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="paciente", schema="gestionpedidosCRUD")
-public class paciente {
-    public paciente() {
+@Table(name="cliente", schema="gestionpedidosCRUD")
+public class Cliente {
+    public Cliente() {
     }
 
     public Long getId() {
@@ -42,7 +42,7 @@ public class paciente {
 
     @Override
     public String toString() {
-        return "paciente{" +
+        return "Cliente{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +

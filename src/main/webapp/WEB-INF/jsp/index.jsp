@@ -6,6 +6,6 @@
     <title>HOME</title>
 </head>
 <body>
-<% response.sendRedirect("paciente/lista"); %>
+<% response.sendRedirect("cliente/lista"); %>
 </body>
 </html>

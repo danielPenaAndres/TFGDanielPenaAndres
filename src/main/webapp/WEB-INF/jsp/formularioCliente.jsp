@@ -9,11 +9,11 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Formulario paciente</title>
+    <title>Formulario cliente</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/estilos/estilos.css">
 </head>
 <body>
-<form:form action="insertarpaciente" modelAttribute="paciente" method="POST">
+<form:form action="insertarCliente" modelAttribute="cliente" method="POST">
     <form:hidden path="id"/>
 <table>
     <tr>

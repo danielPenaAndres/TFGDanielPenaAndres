@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h1>Lista de pacientes</h1>
+<h1>Lista de Clientes</h1>
 
 <table border="1">
     <tr>
@@ -19,17 +19,17 @@
         <th>Modificar</th>
         <th>Eliminar</th>
     </tr>
-    <c:forEach var="pacienteTemp" items="${pacientes}">
-        <c:url var="linkActualizar" value="/paciente/muestraFormularioActualizar">
-            <c:param name="pacienteId" value="${pacienteTemp.id}"/>
+    <c:forEach var="clienteTemp" items="${clientes}">
+        <c:url var="linkActualizar" value="/cliente/muestraFormularioActualizar">
+            <c:param name="clienteId" value="${clienteTemp.id}"/>
         </c:url>
-        <c:url var="linkEliminar" value="/paciente/eliminar">
-            <c:param name="pacienteId" value="${pacienteTemp.id}"/>
+        <c:url var="linkEliminar" value="/cliente/eliminar">
+            <c:param name="clienteId" value="${clienteTemp.id}"/>
         </c:url>
         <tr>
-            <td>${pacienteTemp.nombre}</td>
-            <td>${pacienteTemp.apellido}</td>
-            <td>${pacienteTemp.email}</td>
+            <td>${clienteTemp.nombre}</td>
+            <td>${clienteTemp.apellido}</td>
+            <td>${clienteTemp.email}</td>
             <td><a href="${linkActualizar}" ><input type="button" value="Modificar"/></a> </td>
             <td><a href="${linkEliminar}" ><input type="button" value="Eliminar" onclick="if (!(confirm('¿Estas seguro en elimar el registro?'))) return false"/></a> </td>
         </tr>
@@ -38,6 +38,6 @@
 </table>
 
 <br>
-<input type="button" value="Agregar paciente" onclick="window.location.href='muestraFormularioAgregar'; return false; "/>
+<input type="button" value="Agregar Cliente" onclick="window.location.href='muestraFormularioAgregar'; return false; "/>
 </body>
 </html>
