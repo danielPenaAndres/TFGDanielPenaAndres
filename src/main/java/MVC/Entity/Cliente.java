@@ -3,7 +3,7 @@ package MVC.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="cliente", schema="gestionpedidosCRUD")
+@Table(name="cliente")
 public class Cliente {
     public Cliente() {
     }
