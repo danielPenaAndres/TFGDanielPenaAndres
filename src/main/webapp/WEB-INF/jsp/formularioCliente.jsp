@@ -9,7 +9,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Formulario cliente</title>
+    <title>Formulario Paciente</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/estilos/estilos.css">
 </head>
 <body>
@@ -22,7 +22,23 @@
     </tr>
     <tr>
         <td>Apellido: </td>
-        <td><form:input path="apellido"/> </td>
+        <td><form:input path="apellidos"/> </td>
+    </tr>
+    <tr>
+        <td>DNI: </td>
+        <td><form:input path="DNI"/> </td>
+    </tr>
+    <tr>
+        <td>Fecha De Nacimiento: </td>
+        <td><form:input path="fechaDeNacimiento"/> </td>
+    </tr>
+    <tr>
+        <td>Sexo: </td>
+        <td><form:input path="sexo"/> </td>
+    </tr>
+    <tr>
+        <td>Nacionalidad: </td>
+        <td><form:input path="nacionalidad"/> </td>
     </tr>
     <tr>
         <td>Email: </td>

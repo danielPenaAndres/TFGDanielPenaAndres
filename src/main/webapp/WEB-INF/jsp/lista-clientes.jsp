@@ -14,10 +14,16 @@
 <table border="1">
     <tr>
         <th>Nombre</th>
-        <th>Apellido</th>
+        <th>Apellidos</th>
+        <th>DNI</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Sexo</th>
+        <th>Nacionalidad</th>
         <th>Email</th>
         <th>Modificar</th>
         <th>Eliminar</th>
+        <th>Episodios</th>
+        <th>Citas</th>
     </tr>
     <c:forEach var="clienteTemp" items="${clientes}">
         <c:url var="linkActualizar" value="/paciente/muestraFormularioActualizar">
@@ -26,12 +32,24 @@
         <c:url var="linkEliminar" value="/paciente/eliminar">
             <c:param name="clienteId" value="${clienteTemp.id}"/>
         </c:url>
+        <c:url var="linkEpisodios" value="/paciente/episodios">
+            <c:param name="clienteId" value="${clienteTemp.id}"/>
+        </c:url>
+        <c:url var="linkCitas" value="/paciente/citas">
+            <c:param name="clienteId" value="${clienteTemp.id}"/>
+        </c:url>
         <tr>
             <td>${clienteTemp.nombre}</td>
-            <td>${clienteTemp.apellido}</td>
+            <td>${clienteTemp.apellidos}</td>
+            <td>${clienteTemp.DNI}</td>
+            <td>${clienteTemp.fechaDeNacimiento}</td>
+            <td>${clienteTemp.sexo}</td>
+            <td>${clienteTemp.nacionalidad}</td>
             <td>${clienteTemp.email}</td>
             <td><a href="${linkActualizar}" ><input type="button" value="Modificar"/></a> </td>
             <td><a href="${linkEliminar}" ><input type="button" value="Eliminar" onclick="if (!(confirm('¿Estas seguro en elimar el registro?'))) return false"/></a> </td>
+            <td><a href="${linkEpisodios}" ><input type="button" value="Episodios"/></a> </td>
+            <td><a href="${linkCitas}" ><input type="button" value="Citas"/></a> </td>
         </tr>
     </c:forEach>
 

@@ -10,7 +10,7 @@ public interface clienteDAO {
     public List<Cliente> getClientes();
 
 
-    public Cliente getCliente(long id);
+    public Cliente getCliente(int id);
 
-    public void eliminarCliente(long id);
+    public void eliminarCliente(int id);
 }
