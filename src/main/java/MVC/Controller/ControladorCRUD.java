@@ -55,7 +55,7 @@ public class ControladorCRUD {
     public String creaUsuario(){
         Usuario us=new Usuario();
         us.setClave(encoder.encode("123"));
-        us.setApellidos("pena");
+        us.setApellidos("Pena");
         us.setDNI("01940400M");
         us.setNombre("Daniel");
         us.setTipo("A");
