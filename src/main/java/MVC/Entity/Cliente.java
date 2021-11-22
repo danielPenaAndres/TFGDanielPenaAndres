@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -122,9 +123,11 @@ public class Cliente {
             cascade = CascadeType.ALL)
     private Set<Cita> citas = new HashSet<>();
     @Column(name = "nombre")
+    @NotEmpty(message = "*Por favor escriba un usuario")
     private String nombre;
     @Column(name = "apellidos")
     private String apellidos;
+    @NotEmpty(message = "*Por favor escriba un DNI")
     @Column(name = "DNI")
     private String DNI;
     @DateTimeFormat(pattern="dd.MM.yyyy")
@@ -134,7 +137,8 @@ public class Cliente {
     private String sexo;
     @Column(name = "nacionalidad")
     private String nacionalidad;
-    @Email
+    @Email(message = "*Please provide a valid Email")
+    @NotEmpty(message = "*Please provide an email")
     @Column(name = "email")
     private String email;
 }

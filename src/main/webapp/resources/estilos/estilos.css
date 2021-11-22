@@ -8,3 +8,5 @@ table{
     text-align: center;
     margin: auto;
 }
+
+.hidetext { -webkit-text-security: disc; /* Default */ }

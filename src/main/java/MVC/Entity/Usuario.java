@@ -1,10 +1,15 @@
 package MVC.Entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.Set;
 
 @Table(name = "usuario")
 @Entity
 public class Usuario {
+
     public int getId() {
         return id;
     }
@@ -46,11 +51,11 @@ public class Usuario {
     }
 
     public String getTipo() {
-        return Tipo;
+        return tipo;
     }
 
     public void setTipo(String tipo) {
-        Tipo = tipo;
+        this.tipo = tipo;
     }
 
     @Id
@@ -65,7 +70,10 @@ public class Usuario {
     private String apellidos;
     @Column(name = "DNI")
     private String DNI;
-    @Column(name = "Tipo")
-    private String Tipo;
+    @Column(name = "tipo")
+    private String tipo;
+    //@Length(min = 2, message = "*Your password must have at least 5 characters")
+    //@NotEmpty(message = "*Please provide your password")
+
 
 }

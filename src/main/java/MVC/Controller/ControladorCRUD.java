@@ -25,22 +25,29 @@ import java.util.List;
 @RequestMapping("/paciente")
 public class ControladorCRUD {
 
-    @RequestMapping("/lista")
+    @RequestMapping("lista")
     public String muestraFormulario(Model modelo){
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails)principal).getUsername();
-        boolean hasUserRole = authentication.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ADMIN"));
 
-        if (hasUserRole){
-            System.out.println("/////////////////USUARIO ADMIN//////////////////////////");
+
+        if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("MEDICO"))){
+            System.out.println("/////////////////USUARIO MEDICO//////////////////////////");
         //Obtener los clientes desde el DAO
         List<Cliente> losClientes=repoPaciente.findAll();
         //Agregar clientes desde al modelo
         modelo.addAttribute("clientes",losClientes);
         return "lista-clientes";}
+
+        else if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))){
+
+            System.out.println("/////////////////USUARIO ADMIN//////////////////////////");
+            List<Usuario> losUsuarios=repoUsuario.findAll();
+            //Agregar clientes desde al modelo
+            modelo.addAttribute("usuarios",losUsuarios);
+            return "lista-usuarios";}
         else{
             System.out.println("/////////////////USUARIO NORMAL//////////////////////////");
             //Obtener los clientes desde el DAO
@@ -48,21 +55,8 @@ public class ControladorCRUD {
             //Agregar clientes desde al modelo
             modelo.addAttribute("clientes",losClientes);
             return "lista-clientes-usuario";}
-
-        }
-
-    @RequestMapping("/usuario")
-    public String creaUsuario(){
-        Usuario us=new Usuario();
-        us.setClave(encoder.encode("123"));
-        us.setApellidos("Pena");
-        us.setDNI("01940400M");
-        us.setNombre("Daniel");
-        us.setTipo("A");
-        repoUsuario.save(us);
-        return "Se ha creado el usuario con DNI " + us.getDNI();
     }
-    @RequestMapping("/episodios")
+    @RequestMapping("episodios")
     public String muestraEpisodios(@RequestParam("clienteId") int Id,Model modelo){
         //Obtener los clientes desde el DAO
         this.idepi=Id;
@@ -71,7 +65,7 @@ public class ControladorCRUD {
         modelo.addAttribute("episodios",losEpisodios);
         return "lista-episodios";
     }
-    @RequestMapping("/citas")
+    @RequestMapping("citas")
     public String muestraCitas(@RequestParam("clienteId") int Id,Model modelo){
         //Obtener los clientes desde el DAO
         this.idepi=Id;
@@ -80,7 +74,7 @@ public class ControladorCRUD {
         modelo.addAttribute("citas",lasCitas);
         return "lista-citas";
     }
-    @RequestMapping("/episodiosUsuario")
+    @RequestMapping("episodiosUsuario")
     public String muestraEpisodiosUsuario(@RequestParam("clienteId") int Id,Model modelo){
         //Obtener los clientes desde el DAO
         this.idepi=Id;
@@ -89,7 +83,7 @@ public class ControladorCRUD {
         modelo.addAttribute("episodios",losEpisodios);
         return "lista-episodios-usuario";
     }
-    @RequestMapping("/citasUsuario")
+    @RequestMapping("citasUsuario")
     public String muestraCitasUsuario(@RequestParam("clienteId") int Id,Model modelo){
         //Obtener los clientes desde el DAO
         this.idepi=Id;
@@ -98,10 +92,6 @@ public class ControladorCRUD {
         modelo.addAttribute("citas",lasCitas);
         return "lista-citas-usuario";
     }
-
-
-
-
     @PostMapping("insertarCliente")
     public String insertarCliente(@ModelAttribute("cliente") Cliente elCliente){
         repoPaciente.save(elCliente);
@@ -124,30 +114,42 @@ public class ControladorCRUD {
         repoCitas.save(laCita);
         return "redirect:/paciente/citas?clienteId="+this.idepi;
     }
-
-    @RequestMapping("/muestraFormularioEpisodio")
+    @PostMapping("insertarUsuario")
+    public String insertarUsuario(@ModelAttribute("usuario") Usuario elUsuario){
+        String claveCrypt=encoder.encode(elUsuario.getClave());
+        elUsuario.setClave(claveCrypt);
+        System.out.println(elUsuario.getDNI()+"////////////////////////////////////////");
+        repoUsuario.save(elUsuario);
+        return "redirect:/paciente/lista";
+    }
+    @RequestMapping("muestraFormularioEpisodio")
     public String muestraFormularioEpisodio(Model modelo){
         //Bind de datos
         Episodio elEpisodio=new Episodio();
         modelo.addAttribute("episodio",elEpisodio);
         return "formularioEpisodios";
     }
-    @RequestMapping("/muestraFormularioCita")
+    @RequestMapping("muestraFormularioCita")
     public String muestraFormularioCita(Model modelo){
         //Bind de datos
         Cita laCita=new Cita();
         modelo.addAttribute("cita",laCita);
         return "formularioCitas";
     }
-    @RequestMapping("/muestraFormularioAgregar")
+    @RequestMapping("muestraFormularioAgregar")
     public String muestraFormularioAgregar(Model modelo){
         //Bind de datos
         Cliente elCliente=new Cliente();
         modelo.addAttribute("cliente",elCliente);
         return "formularioCliente";
     }
-
-
+    @RequestMapping("muestraFormularioUsuario")
+    public String muestraFormularioUsuario(Model modelo){
+        //Bind de datos
+        Usuario elUsuario=new Usuario();
+        modelo.addAttribute("usuario",elUsuario);
+        return "formularioUsuario";
+    }
     @GetMapping("eliminar")
     public String eliminarCliente(@RequestParam("clienteId") int Id){
         //Eliminar cliente
@@ -155,6 +157,14 @@ public class ControladorCRUD {
         //Reddirecionnar a lista clientes
         return "redirect:/paciente/lista";
     }
+    @GetMapping("eliminarUsuario")
+    public String eliminarUsuario(@RequestParam("usuarioId") int Id){
+        //Eliminar cliente
+        repoUsuario.deleteById(Id);
+        //Reddirecionnar a lista clientes
+        return "redirect:/paciente/lista";
+    }
+
 
     @GetMapping("eliminarEpisodio")
     public String eliminarEpisodio(@RequestParam("episodioId") int Id){
@@ -170,6 +180,7 @@ public class ControladorCRUD {
         //Reddirecionnar a lista clientes
         return "redirect:/paciente/citas?clienteId="+this.idepi;
     }
+
     @GetMapping("muestraFormularioActualizar")
     public String muestraFormularioActualizar(@RequestParam("clienteId") int Id,Model modelo){
         //Obtener cliente
@@ -197,7 +208,15 @@ public class ControladorCRUD {
         //enviar al formulario
         return "formularioCitas";
     }
-
+    @GetMapping("muestraUsuarioActualizar")
+    public String muestraUsuarioActualizar(@RequestParam("usuarioId") int Id,Model modelo){
+        //Obtener cliente
+        Usuario elUsuario=repoUsuario.getById(Id);
+        //Obtener el cliente como atributo del modelo
+        modelo.addAttribute("usuario",elUsuario);
+        //enviar al formulario
+        return "formularioUsuario";
+    }
 
     private int idepi;
 
