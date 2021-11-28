@@ -18,11 +18,11 @@ public class Cita {
         this.codCita = codCita;
     }
 
-    public Cliente getId() {
+    public Paciente getId() {
         return id;
     }
 
-    public void setId(Cliente id) {
+    public void setId(Paciente id) {
         this.id = id;
     }
 
@@ -76,7 +76,7 @@ public class Cita {
     private Integer codCita;
     @ManyToOne
     @JoinColumn(name = "id")
-    private Cliente id;
+    private Paciente id;
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Column(name = "fechaDeCita")
     private String fechaDeCita;

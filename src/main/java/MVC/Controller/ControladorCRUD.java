@@ -2,15 +2,16 @@ package MVC.Controller;
 
 
 import MVC.Entity.Cita;
-import MVC.Entity.Cliente;
+import MVC.Entity.Paciente;
 import MVC.Entity.Episodio;
 import MVC.Entity.Usuario;
-import MVC.Service.ClienteService;
+import MVC.Service.PacienteService;
 import MVC.Service.EpisodioService;
 import MVC.repo.ICitaRepo;
-import MVC.repo.IClienteRepo;
+import MVC.repo.IPacienteRepo;
 import MVC.repo.IEpisodioRepo;
 import MVC.repo.IUsuarioRepo;
+import MVC.validacionesPersonalizadas.PacienteValidator;
 import MVC.validacionesPersonalizadas.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,10 +43,10 @@ public class ControladorCRUD {
 
         if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("MEDICO"))){
             System.out.println("/////////////////USUARIO MEDICO//////////////////////////");
-        //Obtener los clientes desde el DAO
-            List<Cliente> losClientes= servicePaciente.listAll(DNI);
-            //Agregar clientes desde al modelo
-            modelo.addAttribute("clientes",losClientes);
+        //Obtener los pacientes desde el DAO
+            List<Paciente> losPacientes= servicePaciente.listAll(DNI);
+            //Agregar pacientes desde al modelo
+            modelo.addAttribute("pacientes",losPacientes);
             return paginaPaciente(modelo,1,DNI);
 
         }
@@ -55,44 +56,44 @@ public class ControladorCRUD {
 
             System.out.println("/////////////////USUARIO ADMIN//////////////////////////");
             List<Usuario> losUsuarios=repoUsuario.findAll();
-            //Agregar clientes desde al modelo
+            //Agregar pacientes desde al modelo
             modelo.addAttribute("usuarios",losUsuarios);
             return "lista-usuarios";}
         else{
             System.out.println("/////////////////USUARIO NORMAL//////////////////////////");
-            //Obtener los clientes desde el DAO
-            List<Cliente> losClientes=repoPaciente.findAllByDNI(username);
-            //Agregar clientes desde al modelo
-            modelo.addAttribute("clientes",losClientes);
-            return "lista-clientes-usuario";}
+            //Obtener los pacientes desde el DAO
+            List<Paciente> losPacientes=repoPaciente.findAllByDNI(username);
+            //Agregar pacientes desde al modelo
+            modelo.addAttribute("pacientes",losPacientes);
+            return "lista-pacientes-usuario";}
     }
     @RequestMapping("/paginaPaciente={pageNumber}")
     public String paginaPaciente(Model modelo, @PathVariable("pageNumber") int pageNumber,@Param("DNI") String DNI){
 
             if (DNI==null || DNI.isEmpty() ){
 
-                Page<Cliente> pages=servicePaciente.listAll(pageNumber,DNI);
+                Page<Paciente> pages=servicePaciente.listAll(pageNumber,DNI);
                 long totalElements= pages.getTotalElements();
                 int totalPages=pages.getTotalPages();
-                List<Cliente> clientes=pages.getContent();
+                List<Paciente> pacientes=pages.getContent();
                 modelo.addAttribute("number", pages.getNumber());
                 modelo.addAttribute("totalPages", totalPages);
                 modelo.addAttribute("totalElements", totalElements);
                 modelo.addAttribute("size", pages.getSize());
-                modelo.addAttribute("clientes",clientes);
-                return "lista-clientes";
+                modelo.addAttribute("pacientes",pacientes);
+                return "lista-pacientes";
             }
             else {
-                Page<Cliente> pages=servicePaciente.listAll(pageNumber,DNI);
+                Page<Paciente> pages=servicePaciente.listAll(pageNumber,DNI);
                 long totalElements= pages.getTotalElements();
                 int totalPages=pages.getTotalPages();
-                List<Cliente> clientes=servicePaciente.listAll(DNI);
+                List<Paciente> pacientes=servicePaciente.listAll(DNI);
                 modelo.addAttribute("number", pages.getNumber());
                 modelo.addAttribute("totalPages", totalPages);
                 modelo.addAttribute("totalElements", totalElements);
                 modelo.addAttribute("size", pages.getSize());
-                modelo.addAttribute("clientes",clientes);
-                return "lista-clientes";
+                modelo.addAttribute("pacientes",pacientes);
+                return "lista-pacientes";
             }
 
     }
@@ -127,62 +128,66 @@ public class ControladorCRUD {
 
     }
     @RequestMapping("episodios")
-    public String muestraEpisodios(@RequestParam("clienteId") int Id,Model modelo, @Param("servicio") String servicio){
-        //Obtener los clientes desde el DAO
+    public String muestraEpisodios(@RequestParam("pacienteId") int Id,Model modelo, @Param("servicio") String servicio){
+        //Obtener los pacientes desde el DAO
         this.idepi=Id;
         List<Episodio> losEpisodios=repoEpisodio.findAllByid_Id(Id);
-        //Agregar clientes desde al modelo
+        //Agregar pacientes desde al modelo
         modelo.addAttribute("episodios",losEpisodios);
         return "lista-episodios";
     }
     @RequestMapping("citas")
-    public String muestraCitas(@RequestParam("clienteId") int Id,Model modelo){
-        //Obtener los clientes desde el DAO
+    public String muestraCitas(@RequestParam("pacienteId") int Id,Model modelo){
+        //Obtener los pacientes desde el DAO
         this.idepi=Id;
         List<Cita> lasCitas=repoCitas.findAllByid_Id(Id);
-        //Agregar clientes desde al modelo
+        //Agregar pacientes desde al modelo
         modelo.addAttribute("citas",lasCitas);
         return "lista-citas";
     }
     @RequestMapping("episodiosUsuario")
-    public String muestraEpisodiosUsuario(@RequestParam("clienteId") int Id,Model modelo){
-        //Obtener los clientes desde el DAO
+    public String muestraEpisodiosUsuario(@RequestParam("pacienteId") int Id,Model modelo){
+        //Obtener los pacientes desde el DAO
         this.idepi=Id;
         List<Episodio> losEpisodios=repoEpisodio.findAllByid_Id(Id);
-        //Agregar clientes desde al modelo
+        //Agregar pacientes desde al modelo
         modelo.addAttribute("episodios",losEpisodios);
         return "lista-episodios-usuario";
     }
     @RequestMapping("citasUsuario")
-    public String muestraCitasUsuario(@RequestParam("clienteId") int Id,Model modelo){
-        //Obtener los clientes desde el DAO
+    public String muestraCitasUsuario(@RequestParam("pacienteId") int Id,Model modelo){
+        //Obtener los pacientes desde el DAO
         this.idepi=Id;
         List<Cita> lasCitas=repoCitas.findAllByid_Id(Id);
-        //Agregar clientes desde al modelo
+        //Agregar pacientes desde al modelo
         modelo.addAttribute("citas",lasCitas);
         return "lista-citas-usuario";
     }
-    @PostMapping("insertarCliente")
-    public String insertarCliente(@ModelAttribute("cliente") Cliente elCliente){
-        repoPaciente.save(elCliente);
+    @PostMapping("insertarPaciente")
+    public String insertarPaciente(@ModelAttribute("paciente") Paciente elPaciente, BindingResult bindingResult){
+        pacienteValidator.validate(elPaciente, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "formularioPaciente";
+        }
+        repoPaciente.save(elPaciente);
         return "redirect:/paciente/lista";
     }
     @PostMapping("insertarEpisodio")
     public String insertarEpisodio(@ModelAttribute("episodio") Episodio elEpisodio){
-        Cliente clie=new Cliente();
+        Paciente clie=new Paciente();
         clie.setId(this.idepi);
         elEpisodio.setId(clie);
         repoEpisodio.save(elEpisodio);
-        return "redirect:/paciente/episodios?clienteId="+this.idepi;
+        return "redirect:/paciente/episodios?pacienteId="+this.idepi;
     }
 
     @PostMapping("insertarCitas")
     public String insertarCita(@ModelAttribute("cita") Cita laCita){
-        Cliente clie=new Cliente();
+        Paciente clie=new Paciente();
         clie.setId(this.idepi);
         laCita.setId(clie);
         repoCitas.save(laCita);
-        return "redirect:/paciente/citas?clienteId="+this.idepi;
+        return "redirect:/paciente/citas?pacienteId="+this.idepi;
     }
     @PostMapping("insertarUsuario")
     public String insertarUsuario(@ModelAttribute("usuario") Usuario elUsuario, BindingResult bindingResult){
@@ -213,9 +218,9 @@ public class ControladorCRUD {
     @RequestMapping("muestraFormularioAgregar")
     public String muestraFormularioAgregar(Model modelo){
         //Bind de datos
-        Cliente elCliente=new Cliente();
-        modelo.addAttribute("cliente",elCliente);
-        return "formularioCliente";
+        Paciente elPaciente=new Paciente();
+        modelo.addAttribute("paciente",elPaciente);
+        return "formularioPaciente";
     }
     @RequestMapping("muestraFormularioUsuario")
     public String muestraFormularioUsuario(Model modelo){
@@ -225,68 +230,68 @@ public class ControladorCRUD {
         return "formularioUsuario";
     }
     @GetMapping("eliminar")
-    public String eliminarCliente(@RequestParam("clienteId") int Id){
-        //Eliminar cliente
+    public String eliminarPaciente(@RequestParam("pacienteId") int Id){
+        //Eliminar paciente
         repoPaciente.deleteById(Id);
-        //Reddirecionnar a lista clientes
+        //Reddirecionnar a lista pacientes
         return "redirect:/paciente/lista";
     }
     @GetMapping("eliminarUsuario")
     public String eliminarUsuario(@RequestParam("usuarioId") int Id){
-        //Eliminar cliente
+        //Eliminar paciente
         repoUsuario.deleteById(Id);
-        //Reddirecionnar a lista clientes
+        //Reddirecionnar a lista pacientes
         return "redirect:/paciente/lista";
     }
 
 
     @GetMapping("eliminarEpisodio")
     public String eliminarEpisodio(@RequestParam("episodioId") int Id){
-        //Eliminar cliente
+        //Eliminar paciente
         repoEpisodio.deleteById(Id);
-        //Reddirecionnar a lista clientes
-        return "redirect:/paciente/episodios?clienteId="+this.idepi;
+        //Reddirecionnar a lista pacientes
+        return "redirect:/paciente/episodios?pacienteId="+this.idepi;
     }
     @GetMapping("eliminarCita")
     public String eliminarCita(@RequestParam("citaId") int Id){
-        //Eliminar cliente
+        //Eliminar paciente
         repoCitas.deleteById(Id);
-        //Reddirecionnar a lista clientes
-        return "redirect:/paciente/citas?clienteId="+this.idepi;
+        //Reddirecionnar a lista pacientes
+        return "redirect:/paciente/citas?pacienteId="+this.idepi;
     }
 
     @GetMapping("muestraFormularioActualizar")
-    public String muestraFormularioActualizar(@RequestParam("clienteId") int Id,Model modelo){
-        //Obtener cliente
-        Cliente elCliente=repoPaciente.getById(Id);
-        //Obtener el cliente como atributo del modelo
-        modelo.addAttribute("cliente",elCliente);
+    public String muestraFormularioActualizar(@RequestParam("pacienteId") int Id,Model modelo){
+        //Obtener paciente
+        Paciente elPaciente=repoPaciente.getById(Id);
+        //Obtener el paciente como atributo del modelo
+        modelo.addAttribute("paciente",elPaciente);
         //enviar al formulario
-        return "formularioCliente";
+        return "formularioPaciente";
     }
     @GetMapping("muestraEpisodioActualizar")
     public String muestraEpisodioActualizar(@RequestParam("episodioId") int Id,Model modelo){
-        //Obtener cliente
+        //Obtener paciente
         Episodio elEpisodio=repoEpisodio.getById(Id);
-        //Obtener el cliente como atributo del modelo
+        //Obtener el paciente como atributo del modelo
         modelo.addAttribute("episodio",elEpisodio);
         //enviar al formulario
         return "formularioEpisodios";
     }
     @GetMapping("muestraCitaActualizar")
     public String muestraCitaActualizar(@RequestParam("citaId") int Id,Model modelo){
-        //Obtener cliente
+        //Obtener paciente
         Cita laCita=repoCitas.getById(Id);
-        //Obtener el cliente como atributo del modelo
+        //Obtener el paciente como atributo del modelo
         modelo.addAttribute("cita",laCita);
         //enviar al formulario
         return "formularioCitas";
     }
     @GetMapping("muestraUsuarioActualizar")
     public String muestraUsuarioActualizar(@RequestParam("usuarioId") int Id,Model modelo){
-        //Obtener cliente
+        //Obtener paciente
         Usuario elUsuario=repoUsuario.getById(Id);
-        //Obtener el cliente como atributo del modelo
+        //Obtener el paciente como atributo del modelo
         modelo.addAttribute("usuario",elUsuario);
         //enviar al formulario
         return "formularioUsuario";
@@ -295,7 +300,7 @@ public class ControladorCRUD {
     private int idepi;
 
     @Autowired
-    private IClienteRepo repoPaciente;
+    private IPacienteRepo repoPaciente;
 
     @Autowired
     private IEpisodioRepo repoEpisodio;
@@ -310,11 +315,14 @@ public class ControladorCRUD {
     private BCryptPasswordEncoder encoder;
 
     @Autowired
-    private ClienteService servicePaciente;
+    private PacienteService servicePaciente;
 
     @Autowired
     private EpisodioService serviceEpisodio;
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private PacienteValidator pacienteValidator;
 }

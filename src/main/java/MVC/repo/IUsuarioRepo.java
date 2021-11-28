@@ -1,6 +1,6 @@
 package MVC.repo;
 
-import MVC.Entity.Cliente;
+import MVC.Entity.Paciente;
 import MVC.Entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

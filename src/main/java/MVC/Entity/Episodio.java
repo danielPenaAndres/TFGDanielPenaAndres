@@ -19,11 +19,11 @@ public class Episodio {
         this.codEpisodio = codEpisodio;
     }
 
-    public Cliente getId() {
+    public Paciente getId() {
         return id;
     }
 
-    public void setId(Cliente id) {
+    public void setId(Paciente id) {
         this.id = id;
     }
 
@@ -68,7 +68,7 @@ public class Episodio {
     private Integer codEpisodio;
     @ManyToOne
     @JoinColumn(name = "id")
-    private Cliente id;
+    private Paciente id;
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Column(name = "fechaDelEpisodio")
     private String fechaDelEpisodio;

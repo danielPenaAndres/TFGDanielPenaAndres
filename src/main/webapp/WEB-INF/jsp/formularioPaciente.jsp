@@ -10,15 +10,15 @@
     <link href="${contextPath}/resources/estilos/estilos.css" rel="stylesheet">
 </head>
 <body>
-<form:form action="insertarCliente" modelAttribute="cliente" method="POST">
+<form:form action="insertarPaciente" modelAttribute="paciente" method="POST">
     <form:hidden path="id"/>
 
-    <c:if test="${cliente.DNI == null}">
+    <c:if test="${paciente.DNI == null}">
         <h1>Nuevo Paciente</h1>
     </c:if>
 
-    <c:if test="${cliente.DNI != null}">
-        <h1>Paciente: ${cliente.DNI}</h1>
+    <c:if test="${paciente.DNI != null}">
+        <h1>Paciente: ${paciente.DNI}</h1>
     </c:if>
 <table>
     <tr>

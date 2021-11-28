@@ -10,6 +10,12 @@ table{
     margin: auto;
 }
 
+.form-control{
+    width: 50%;
+    text-align: center;
+    margin: auto;
+}
+
 .pagination {
     display: inline-block;
     margin: 0;

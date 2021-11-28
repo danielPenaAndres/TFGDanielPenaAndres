@@ -24,19 +24,17 @@
         <form:hidden path="id"/>
         <spring:bind path="DNI">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="DNI" class="form-control" placeholder="DNI"
+               <form:input type="text" path="DNI" class="form-control" placeholder="DNI"
                             autofocus="true"></form:input>
                 <form:errors path="DNI"></form:errors>
             </div>
         </spring:bind>
-
         <spring:bind path="clave">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="password" path="clave" class="form-control" placeholder="Clave"></form:input>
                 <form:errors path="clave"></form:errors>
             </div>
         </spring:bind>
-
     <spring:bind path="Tipo">
         <div class="form-group ${status.error ? 'has-error' : ''}">
             <form:input type="text" path="Tipo" class="form-control" placeholder="Tipo"
@@ -44,7 +42,6 @@
             <form:errors path="Tipo"></form:errors>
         </div>
     </spring:bind>
-
     <spring:bind path="nombre">
         <div class="form-group ${status.error ? 'has-error' : ''}">
             <form:input type="text" path="nombre" class="form-control" placeholder="Nombre"
@@ -59,8 +56,8 @@
             <form:errors path="apellidos"></form:errors>
         </div>
     </spring:bind>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+</br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
     </form:form>
 <form class="HOME" action="<c:url value="/paciente/lista" />" method="GET">
     <input type="submit" name="action" value="HOME" />

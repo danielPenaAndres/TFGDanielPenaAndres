@@ -1,7 +1,7 @@
 package MVC.repo;
 
 import MVC.Entity.Cita;
-import MVC.Entity.Cliente;
+import MVC.Entity.Paciente;
 import MVC.Entity.Episodio;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface ICitaRepo extends JpaRepository<Cita, Integer> {
-    List<Cita> findByid(Cliente id, Sort sort);
+    List<Cita> findByid(Paciente id, Sort sort);
 
 
     List<Cita> findAllByid_Id(int id);

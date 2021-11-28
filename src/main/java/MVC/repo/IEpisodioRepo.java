@@ -1,6 +1,6 @@
 package MVC.repo;
 
-import MVC.Entity.Cliente;
+import MVC.Entity.Paciente;
 import MVC.Entity.Episodio;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public interface IEpisodioRepo extends JpaRepository<Episodio, Integer> {
-    List<Episodio> findByid(Cliente id, Sort sort);
+    List<Episodio> findByid(Paciente id, Sort sort);
 
 
     List<Episodio> findAllByid_Id(int id);

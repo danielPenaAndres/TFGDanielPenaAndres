@@ -1,8 +1,8 @@
 package MVC.Service;
 
-import MVC.Entity.Cliente;
+import MVC.Entity.Paciente;
 import MVC.Entity.Episodio;
-import MVC.repo.IClienteRepo;
+import MVC.repo.IPacienteRepo;
 import MVC.repo.IEpisodioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

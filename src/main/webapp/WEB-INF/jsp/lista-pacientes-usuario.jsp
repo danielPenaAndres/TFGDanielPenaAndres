@@ -27,21 +27,21 @@
         <th>Episodios</th>
         <th>Citas</th>
     </tr>
-    <c:forEach var="clienteTemp" items="${clientes}">
+    <c:forEach var="pacienteTemp" items="${pacientes}">
         <c:url var="linkEpisodios" value="/paciente/episodiosUsuario">
-            <c:param name="clienteId" value="${clienteTemp.id}"/>
+            <c:param name="pacienteId" value="${pacienteTemp.id}"/>
         </c:url>
         <c:url var="linkCitas" value="/paciente/citasUsuario">
-            <c:param name="clienteId" value="${clienteTemp.id}"/>
+            <c:param name="pacienteId" value="${pacienteTemp.id}"/>
         </c:url>
         <tr>
-            <td>${clienteTemp.nombre}</td>
-            <td>${clienteTemp.apellidos}</td>
-            <td>${clienteTemp.DNI}</td>
-            <td>${clienteTemp.fechaDeNacimiento}</td>
-            <td>${clienteTemp.sexo}</td>
-            <td>${clienteTemp.nacionalidad}</td>
-            <td>${clienteTemp.email}</td>
+            <td>${pacienteTemp.nombre}</td>
+            <td>${pacienteTemp.apellidos}</td>
+            <td>${pacienteTemp.DNI}</td>
+            <td>${pacienteTemp.fechaDeNacimiento}</td>
+            <td>${pacienteTemp.sexo}</td>
+            <td>${pacienteTemp.nacionalidad}</td>
+            <td>${pacienteTemp.email}</td>
             <td><a href="${linkEpisodios}" ><input type="button" value="Episodios"/></a> </td>
             <td><a href="${linkCitas}" ><input type="button" value="Citas"/></a> </td>
         </tr>

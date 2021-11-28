@@ -11,9 +11,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="cliente")
-public class Cliente {
-    public Cliente() {
+@Table(name="paciente")
+public class Paciente {
+    public Paciente() {
     }
 
     public Integer getId() {
@@ -98,7 +98,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" +
+        return "Paciente{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +

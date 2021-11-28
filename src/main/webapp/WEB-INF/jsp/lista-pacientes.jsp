@@ -25,9 +25,9 @@
         <input type="button" value="Mostrar todos los pacientes" onclick="limpiarFiltro()"/>
         &nbsp;
     </form>
-        <form action="cliente">
-            <c:forEach var="cliente" items="${cliente}">
-                ${cliente}
+        <form action="paciente">
+            <c:forEach var="paciente" items="${paciente}">
+                ${paciente}
             </c:forEach>
         </form>
     </div>
@@ -37,7 +37,7 @@
 
     </tr>
     <c:choose>
-        <c:when test="${clientes.size() > 0 }">
+        <c:when test="${pacientes.size() > 0 }">
             <th><a>Nombre</a></th>
             <th><a>Apellidos</a></th>
             <th><a>DNI</a></th>
@@ -57,27 +57,27 @@
         </c:otherwise>
     </c:choose>
 
-    <c:forEach var="clienteTemp" items="${clientes}">
+    <c:forEach var="pacienteTemp" items="${pacientes}">
         <c:url var="linkActualizar" value="/paciente/muestraFormularioActualizar">
-            <c:param name="clienteId" value="${clienteTemp.id}"/>
+            <c:param name="pacienteId" value="${pacienteTemp.id}"/>
         </c:url>
         <c:url var="linkEliminar" value="/paciente/eliminar">
-            <c:param name="clienteId" value="${clienteTemp.id}"/>
+            <c:param name="pacienteId" value="${pacienteTemp.id}"/>
         </c:url>
         <c:url var="linkEpisodios" value="/paciente/episodios">
-            <c:param name="clienteId" value="${clienteTemp.id}"/>
+            <c:param name="pacienteId" value="${pacienteTemp.id}"/>
         </c:url>
         <c:url var="linkCitas" value="/paciente/citas">
-            <c:param name="clienteId" value="${clienteTemp.id}"/>
+            <c:param name="pacienteId" value="${pacienteTemp.id}"/>
         </c:url>
         <tr>
-            <td>${clienteTemp.nombre}</td>
-            <td>${clienteTemp.apellidos}</td>
-            <td>${clienteTemp.DNI}</td>
-            <td>${clienteTemp.fechaDeNacimiento}</td>
-            <td>${clienteTemp.sexo}</td>
-            <td>${clienteTemp.nacionalidad}</td>
-            <td>${clienteTemp.email}</td>
+            <td>${pacienteTemp.nombre}</td>
+            <td>${pacienteTemp.apellidos}</td>
+            <td>${pacienteTemp.DNI}</td>
+            <td>${pacienteTemp.fechaDeNacimiento}</td>
+            <td>${pacienteTemp.sexo}</td>
+            <td>${pacienteTemp.nacionalidad}</td>
+            <td>${pacienteTemp.email}</td>
             <td><a href="${linkActualizar}" ><input type="button" value="Modificar"/></a> </td>
             <td><a href="${linkEliminar}" ><input type="button" value="Eliminar" onclick="if (!(confirm('¿Estas seguro en elimar el registro?'))) return false"/></a> </td>
             <td><a href="${linkEpisodios}" ><input type="button" value="Episodios"/></a> </td>
@@ -86,7 +86,7 @@
     </c:forEach>
 
 </table>
-    <c:if test="${clientes.size() > 0 }">
+    <c:if test="${pacientes.size() > 0 }">
         <div class="panel-footer" >
             Mostrando ${number+1} de ${size+1} de ${totalElements}<br/>
             <ul class="pagination">
