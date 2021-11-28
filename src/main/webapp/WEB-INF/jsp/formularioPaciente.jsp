@@ -10,9 +10,7 @@
     <link href="${contextPath}/resources/estilos/estilos.css" rel="stylesheet">
 </head>
 <body>
-<form:form action="insertarPaciente" modelAttribute="paciente" method="POST">
-    <form:hidden path="id"/>
-
+<form:form method="POST" modelAttribute="paciente" action="insertarPaciente" class="form-signin">
     <c:if test="${paciente.DNI == null}">
         <h1>Nuevo Paciente</h1>
     </c:if>
@@ -20,41 +18,57 @@
     <c:if test="${paciente.DNI != null}">
         <h1>Paciente: ${paciente.DNI}</h1>
     </c:if>
-<table>
-    <tr>
-        <td>Nombre: </td>
-        <td><form:input path="nombre"/>  </td>
-    </tr>
-    <tr>
-        <td>Apellido: </td>
-        <td><form:input path="apellidos"/> </td>
-    </tr>
-    <tr>
-        <td>DNI: </td>
-        <td><form:input path="DNI"/> </td>
-    </tr>
-    <tr>
-        <td>Fecha De Nacimiento: </td>
-        <td><form:input type="date" path="fechaDeNacimiento"/> </td>
-    </tr>
-    <tr>
-        <td>Sexo: </td>
-        <td><form:input path="sexo"/> </td>
-    </tr>
-    <tr>
-        <td>Nacionalidad: </td>
-        <td><form:input path="nacionalidad"/> </td>
-    </tr>
-    <tr>
-        <td>Email: </td>
-        <td><form:input path="email"/>  </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="Insertar/Modificar">
-        </td>
-    </tr>
-</table>
+    <form:hidden path="id"/>
+    <spring:bind path="DNI">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="DNI" class="form-control" placeholder="DNI"
+                        autofocus="true"></form:input>
+            <form:errors path="DNI"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="nombre">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="nombre" class="form-control" placeholder="Nombre"
+                        autofocus="true"></form:input>
+            <form:errors path="nombre"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="apellidos">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="apellidos" class="form-control" placeholder="Apellidos"
+                        autofocus="true"></form:input>
+            <form:errors path="apellidos"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="email">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="email" path="email" class="form-control" placeholder="Email"></form:input>
+            <form:errors path="email"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="fechaDeNacimiento">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="date" path="fechaDeNacimiento" class="form-control" placeholder="Fecha de Nacimiento"
+                        autofocus="true"></form:input>
+            <form:errors path="fechaDeNacimiento"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="nacionalidad">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="nacionalidad" class="form-control" placeholder="Nacionalidad"
+                        autofocus="true"></form:input>
+            <form:errors path="nacionalidad"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="sexo">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="sexo" class="form-control" placeholder="Sexo"
+                        autofocus="true"></form:input>
+            <form:errors path="sexo"></form:errors>
+        </div>
+    </spring:bind>
+    </br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
 </form:form>
 <form class="HOME" action="<c:url value="/paciente/lista" />" method="GET">
     <input type="submit" name="action" value="HOME" />

@@ -10,9 +10,7 @@
     <link href="${contextPath}/resources/estilos/estilos.css" rel="stylesheet">
 </head>
 <body>
-<form:form action="insertarEpisodio" modelAttribute="episodio" method="POST">
-<form:hidden path="codEpisodio"/>
-
+<form:form method="POST" modelAttribute="episodio" action="insertarEpisodio" class="form-signin">
     <c:if test="${episodio.codEpisodio == null}">
         <h1>Nuevo Episodio</h1>
     </c:if>
@@ -20,26 +18,30 @@
     <c:if test="${episodio.codEpisodio != null}">
         <h1>Episodio: ${episodio.codEpisodio}</h1>
     </c:if>
-
-<table>
-    <tr>
-        <td>Fecha del Episodio: </td>
-        <td><form:input type="date" path="fechaDelEpisodio"/>  </td>
-    </tr>
-    <tr>
-        <td>Observaciones: </td>
-        <td><form:input path="observaciones"/> </td>
-    </tr>
-    <tr>
-        <td>Servicio: </td>
-        <td><form:input path="servicio"/> </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="Insertar/Modificar">
-        </td>
-    </tr>
-</table>
+    <form:hidden path="codEpisodio"/>
+    <spring:bind path="fechaDelEpisodio">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="date" path="fechaDelEpisodio" class="form-control" placeholder="Fecha del Episodio"
+                        autofocus="true"></form:input>
+            <form:errors path="fechaDelEpisodio"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="observaciones">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="observaciones" class="form-control" placeholder="Observaciones"
+                        autofocus="true"></form:input>
+            <form:errors path="observaciones"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="servicio">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="servicio" class="form-control" placeholder="Servicio"
+                        autofocus="true"></form:input>
+            <form:errors path="servicio"></form:errors>
+        </div>
+    </spring:bind>
+    </br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
 </form:form>
 <form class="HOME" action="<c:url value="/paciente/lista" />" method="GET">
     <input type="submit" name="action" value="HOME" />

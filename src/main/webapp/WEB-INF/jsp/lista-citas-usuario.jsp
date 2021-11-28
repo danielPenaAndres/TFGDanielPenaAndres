@@ -11,7 +11,7 @@
     <link href="${contextPath}/resources/estilos/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/estilos/estilos.css" rel="stylesheet">
 </head>
-<body>
+<br>
 
 <h1>Lista de Citas</h1>
 <div>
@@ -45,6 +45,7 @@
         </c:if>
     </div>
 </div>
+</br>
 <form class="HOME2" action="<c:url value="/paciente/lista" />" method="GET">
     <input type="submit" name="action" value="HOME" />
 </form>

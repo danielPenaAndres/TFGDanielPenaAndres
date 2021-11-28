@@ -10,8 +10,8 @@
     <link href="${contextPath}/resources/estilos/estilos.css" rel="stylesheet">
 </head>
 <body>
-<form:form action="insertarCitas" modelAttribute="cita" method="POST">
-<form:hidden path="codCita"/>
+<form:form method="POST" modelAttribute="cita" action="insertarCitas" class="form-signin">
+
     <c:if test="${cita.codCita == null}">
         <h1>Nueva Cita</h1>
     </c:if>
@@ -19,29 +19,38 @@
     <c:if test="${cita.codCita != null}">
         <h1>Cita: ${cita.codCita}</h1>
     </c:if>
-<table>
-    <tr>
-        <td>Fecha de la Cita: </td>
-        <td><form:input type="date" path="fechaDeCita"/>  </td>
-    </tr>
-    <tr>
-        <td>Observaciones: </td>
-        <td><form:input path="observaciones"/> </td>
-    </tr>
-    <tr>
-        <td>Servicio: </td>
-        <td><form:input path="servicio"/> </td>
-    </tr>
-    <tr>
-        <td>Servicio: </td>
-        <td><form:input path="prestacion"/> </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="Insertar/Modificar">
-        </td>
-    </tr>
-</table>
+
+    <form:hidden path="codCita"/>
+    <spring:bind path="fechaDeCita">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="date" path="fechaDeCita" class="form-control" placeholder="Fecha de la Cita"
+                        autofocus="true"></form:input>
+            <form:errors path="fechaDeCita"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="observaciones">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="observaciones" class="form-control" placeholder="Observaciones"
+                        autofocus="true"></form:input>
+            <form:errors path="observaciones"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="servicio">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="servicio" class="form-control" placeholder="Servicio"
+                        autofocus="true"></form:input>
+            <form:errors path="servicio"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="prestacion">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="prestacion" class="form-control" placeholder="Prestacion"
+                        autofocus="true"></form:input>
+            <form:errors path="prestacion"></form:errors>
+        </div>
+    </spring:bind>
+    </br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
 </form:form>
 <form class="HOME" action="<c:url value="/paciente/lista" />" method="GET">
     <input type="submit" name="action" value="HOME" />

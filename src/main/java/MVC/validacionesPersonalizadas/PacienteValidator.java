@@ -25,34 +25,39 @@ public class PacienteValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        Pattern patron = Pattern.compile("[0-9]{7,8}[A-Z a-z]");
+        Pattern patronDNI = Pattern.compile("[0-9]{7,8}[A-Z a-z]");
         Paciente paciente = (Paciente) o;
-        Matcher mat = patron.matcher(paciente.getDNI());
+        Matcher matDNI = patronDNI.matcher(paciente.getDNI());
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "DNI", "NotEmpty");
         if (paciente.getDNI().length() < 6 || paciente.getDNI().length() > 32) {
-            errors.rejectValue("DNI", "Patron.Paciente.DNI");
+            errors.rejectValue("DNI", "Size.paciente.DNI");
         }
-        if (!mat.matches()) {
-            errors.rejectValue("DNI", "Size.Paciente.DNI");
+        if (!matDNI.matches()) {
+            errors.rejectValue("DNI", "Patron.paciente.DNI");
         }
         if (repo.findByDNI(paciente.getDNI()) != null && paciente.getId()==0) {
-            errors.rejectValue("DNI", "Duplicate.Paciente.DNI");
-        }
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nombre", "NotEmpty");
-        if (paciente.getNombre().length() < 1 || paciente.getNombre().length() > 32) {
-            errors.rejectValue("nombre", "Size.Paciente.nombre");
-        }
-        if (paciente.getNombre().matches(".*\\d.*")) {
-            errors.rejectValue("nombre", "Numeros.Paciente.nombre");
-        }
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "apellidos", "NotEmpty");
-        if (paciente.getApellidos().length() < 1 || paciente.getApellidos().length() > 32) {
-            errors.rejectValue("apellidos", "Size.Paciente.apellidos");
-        }
-        if (paciente.getApellidos().matches(".*\\d.*")) {
-            errors.rejectValue("apellidos", "Numeros.Paciente.apellidos");
+            errors.rejectValue("DNI", "Duplicate.paciente.DNI");
         }
 
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nombre", "NotEmpty");
+        if (paciente.getNombre().length() < 1 || paciente.getNombre().length() > 32) {
+            errors.rejectValue("nombre", "Size.paciente.nombre");
+        }
+        if (paciente.getNombre().matches(".*\\d.*")) {
+            errors.rejectValue("nombre", "Numeros.paciente.nombre");
+        }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "apellidos", "NotEmpty");
+        if (paciente.getApellidos().length() < 1 || paciente.getApellidos().length() > 32) {
+            errors.rejectValue("apellidos", "Size.paciente.apellidos");
+        }
+        if (paciente.getApellidos().matches(".*\\d.*")) {
+            errors.rejectValue("apellidos", "Numeros.paciente.apellidos");
+        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fechaDeNacimiento", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nacionalidad", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sexo", "NotEmpty");
     }
 }

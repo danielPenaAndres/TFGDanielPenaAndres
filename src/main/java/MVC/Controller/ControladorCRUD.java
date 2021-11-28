@@ -11,6 +11,8 @@ import MVC.repo.ICitaRepo;
 import MVC.repo.IPacienteRepo;
 import MVC.repo.IEpisodioRepo;
 import MVC.repo.IUsuarioRepo;
+import MVC.validacionesPersonalizadas.CitaValidator;
+import MVC.validacionesPersonalizadas.EpisodioValidator;
 import MVC.validacionesPersonalizadas.PacienteValidator;
 import MVC.validacionesPersonalizadas.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -173,19 +175,27 @@ public class ControladorCRUD {
         return "redirect:/paciente/lista";
     }
     @PostMapping("insertarEpisodio")
-    public String insertarEpisodio(@ModelAttribute("episodio") Episodio elEpisodio){
+    public String insertarEpisodio(@ModelAttribute("episodio") Episodio elEpisodio,BindingResult bindingResult){
         Paciente clie=new Paciente();
         clie.setId(this.idepi);
         elEpisodio.setId(clie);
+        episodioValidator.validate(elEpisodio, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "formularioEpisodios";
+        }
         repoEpisodio.save(elEpisodio);
         return "redirect:/paciente/episodios?pacienteId="+this.idepi;
     }
 
     @PostMapping("insertarCitas")
-    public String insertarCita(@ModelAttribute("cita") Cita laCita){
+    public String insertarCita(@ModelAttribute("cita") Cita laCita, BindingResult bindingResult){
         Paciente clie=new Paciente();
         clie.setId(this.idepi);
         laCita.setId(clie);
+        citaValidator.validate(laCita, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "formularioCitas";
+        }
         repoCitas.save(laCita);
         return "redirect:/paciente/citas?pacienteId="+this.idepi;
     }
@@ -325,4 +335,10 @@ public class ControladorCRUD {
 
     @Autowired
     private PacienteValidator pacienteValidator;
+
+    @Autowired
+    private EpisodioValidator episodioValidator;
+
+    @Autowired
+    private CitaValidator citaValidator;
 }

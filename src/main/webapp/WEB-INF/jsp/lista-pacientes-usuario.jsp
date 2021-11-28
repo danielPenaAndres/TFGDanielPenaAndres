@@ -60,9 +60,6 @@
         </c:if>
     </div>
 </div>
-<form class="HOME" action="<c:url value="/paciente/lista" />" method="GET">
-    <input type="submit" name="action" value="HOME" />
-</form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
