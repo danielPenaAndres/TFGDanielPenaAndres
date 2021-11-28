@@ -2,6 +2,8 @@ package MVC.repo;
 
 import MVC.Entity.Cliente;
 import MVC.Entity.Episodio;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,7 +19,11 @@ public interface IEpisodioRepo extends JpaRepository<Episodio, Integer> {
 
     List<Episodio> findAllByid_Id(int id);
 
-   /* @Query("select p from Episodio p where p.paciente = ?1")
-    List<Episodio>findAllByPaciente(int id);*/
+    @Query("SELECT p from Episodio p WHERE p.servicio LIKE %?1%")
+    List<Episodio> findAll(String servicio);
+
+    @Query("SELECT p from Episodio p WHERE p.servicio  LIKE %?1%")
+    Page<Episodio> findAll(String servicio, Pageable pageable);
+
 
 }

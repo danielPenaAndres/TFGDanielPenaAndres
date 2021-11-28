@@ -13,10 +13,18 @@
 <form:form action="insertarEpisodio" modelAttribute="episodio" method="POST">
 <form:hidden path="codEpisodio"/>
 
+    <c:if test="${episodio.codEpisodio == null}">
+        <h1>Nuevo Episodio</h1>
+    </c:if>
+
+    <c:if test="${episodio.codEpisodio != null}">
+        <h1>Episodio: ${episodio.codEpisodio}</h1>
+    </c:if>
+
 <table>
     <tr>
         <td>Fecha del Episodio: </td>
-        <td><form:input path="fechaDelEpisodio"/>  </td>
+        <td><form:input type="date" path="fechaDelEpisodio"/>  </td>
     </tr>
     <tr>
         <td>Observaciones: </td>
@@ -33,6 +41,9 @@
     </tr>
 </table>
 </form:form>
+<form class="HOME" action="<c:url value="/paciente/lista" />" method="GET">
+    <input type="submit" name="action" value="HOME" />
+</form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>

@@ -10,36 +10,61 @@
     <link href="${contextPath}/resources/estilos/estilos.css" rel="stylesheet">
 </head>
 <body>
-<form:form action="insertarUsuario" modelAttribute="usuario" method="POST">
-    <form:hidden path="id"/>
-<table>
-    <tr>
-        <td>DNI: </td>
-        <td><form:input path="DNI"/>  </td>
-    </tr>
-    <tr>
-        <td>Clave: </td>
-        <td class="hidetext"><form:input path="clave"/></td>
-    </tr>
-    <tr>
-        <td>Tipo: </td>
-        <td><form:input path="Tipo"/> </td>
-    </tr>
-    <tr>
-        <td>Nombre: </td>
-        <td><form:input path="nombre"/> </td>
-    </tr>
-    <tr>
-        <td>Apellidos: </td>
-        <td><form:input path="apellidos"/> </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="Insertar">
-        </td>
-    </tr>
-</table>
-</form:form>
+
+
+
+<form:form method="POST" modelAttribute="usuario" action="insertarUsuario" class="form-signin">
+        <c:if test="${usuario.DNI == null}">
+            <h1>Nuevo Usuario</h1>
+        </c:if>
+
+        <c:if test="${usuario.DNI != null}">
+            <h1>Usuario: ${usuario.DNI}</h1>
+        </c:if>
+        <form:hidden path="id"/>
+        <spring:bind path="DNI">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="DNI" class="form-control" placeholder="DNI"
+                            autofocus="true"></form:input>
+                <form:errors path="DNI"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="clave">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="password" path="clave" class="form-control" placeholder="Clave"></form:input>
+                <form:errors path="clave"></form:errors>
+            </div>
+        </spring:bind>
+
+    <spring:bind path="Tipo">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="Tipo" class="form-control" placeholder="Tipo"
+                        autofocus="true"></form:input>
+            <form:errors path="Tipo"></form:errors>
+        </div>
+    </spring:bind>
+
+    <spring:bind path="nombre">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="nombre" class="form-control" placeholder="Nombre"
+                        autofocus="true"></form:input>
+            <form:errors path="nombre"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="apellidos">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="text" path="apellidos" class="form-control" placeholder="Apellidos"
+                        autofocus="true"></form:input>
+            <form:errors path="apellidos"></form:errors>
+        </div>
+    </spring:bind>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+    </form:form>
+<form class="HOME" action="<c:url value="/paciente/lista" />" method="GET">
+    <input type="submit" name="action" value="HOME" />
+</form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>

@@ -75,4 +75,5 @@ public class UserService implements UserDetailsService{
 
         return new org.springframework.security.core.userdetails.User(us.getDNI(), us.getClave(), grantedAuthorities);
     }
+
 }

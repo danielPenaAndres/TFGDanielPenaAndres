@@ -5,17 +5,24 @@ import MVC.Entity.Cita;
 import MVC.Entity.Cliente;
 import MVC.Entity.Episodio;
 import MVC.Entity.Usuario;
+import MVC.Service.ClienteService;
+import MVC.Service.EpisodioService;
 import MVC.repo.ICitaRepo;
 import MVC.repo.IClienteRepo;
 import MVC.repo.IEpisodioRepo;
 import MVC.repo.IUsuarioRepo;
+import MVC.validacionesPersonalizadas.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -26,7 +33,7 @@ import java.util.List;
 public class ControladorCRUD {
 
     @RequestMapping("lista")
-    public String muestraFormulario(Model modelo){
+    public String muestraFormulario(Model modelo, @Param("DNI") String DNI){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -36,10 +43,13 @@ public class ControladorCRUD {
         if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("MEDICO"))){
             System.out.println("/////////////////USUARIO MEDICO//////////////////////////");
         //Obtener los clientes desde el DAO
-        List<Cliente> losClientes=repoPaciente.findAll();
-        //Agregar clientes desde al modelo
-        modelo.addAttribute("clientes",losClientes);
-        return "lista-clientes";}
+            List<Cliente> losClientes= servicePaciente.listAll(DNI);
+            //Agregar clientes desde al modelo
+            modelo.addAttribute("clientes",losClientes);
+            return paginaPaciente(modelo,1,DNI);
+
+        }
+
 
         else if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))){
 
@@ -56,8 +66,68 @@ public class ControladorCRUD {
             modelo.addAttribute("clientes",losClientes);
             return "lista-clientes-usuario";}
     }
+    @RequestMapping("/paginaPaciente={pageNumber}")
+    public String paginaPaciente(Model modelo, @PathVariable("pageNumber") int pageNumber,@Param("DNI") String DNI){
+
+            if (DNI==null || DNI.isEmpty() ){
+
+                Page<Cliente> pages=servicePaciente.listAll(pageNumber,DNI);
+                long totalElements= pages.getTotalElements();
+                int totalPages=pages.getTotalPages();
+                List<Cliente> clientes=pages.getContent();
+                modelo.addAttribute("number", pages.getNumber());
+                modelo.addAttribute("totalPages", totalPages);
+                modelo.addAttribute("totalElements", totalElements);
+                modelo.addAttribute("size", pages.getSize());
+                modelo.addAttribute("clientes",clientes);
+                return "lista-clientes";
+            }
+            else {
+                Page<Cliente> pages=servicePaciente.listAll(pageNumber,DNI);
+                long totalElements= pages.getTotalElements();
+                int totalPages=pages.getTotalPages();
+                List<Cliente> clientes=servicePaciente.listAll(DNI);
+                modelo.addAttribute("number", pages.getNumber());
+                modelo.addAttribute("totalPages", totalPages);
+                modelo.addAttribute("totalElements", totalElements);
+                modelo.addAttribute("size", pages.getSize());
+                modelo.addAttribute("clientes",clientes);
+                return "lista-clientes";
+            }
+
+    }
+    @RequestMapping("/paginaEpisodio={pageNumber}")
+    public String paginaEpisodio(Model modelo, @PathVariable("pageNumber") int pageNumber,@Param("servicio") String servicio){
+
+        if (servicio==null || servicio.isEmpty() ){
+
+            Page<Episodio> pages=serviceEpisodio.listAll(pageNumber,servicio);
+            long totalElements= pages.getTotalElements();
+            int totalPages=pages.getTotalPages();
+            List<Episodio> episodios=pages.getContent();
+            modelo.addAttribute("number", pages.getNumber());
+            modelo.addAttribute("totalPages", totalPages);
+            modelo.addAttribute("totalElements", totalElements);
+            modelo.addAttribute("size", pages.getSize());
+            modelo.addAttribute("episodios",episodios);
+            return "lista-episodios";
+        }
+        else {
+            Page<Episodio> pages=serviceEpisodio.listAll(pageNumber,servicio);
+            long totalElements= pages.getTotalElements();
+            int totalPages=pages.getTotalPages();
+            List<Episodio> episodios=serviceEpisodio.listAll(servicio);
+            modelo.addAttribute("number", pages.getNumber());
+            modelo.addAttribute("totalPages", totalPages);
+            modelo.addAttribute("totalElements", totalElements);
+            modelo.addAttribute("size", pages.getSize());
+            modelo.addAttribute("episodios",episodios);
+            return "lista-episodios";
+        }
+
+    }
     @RequestMapping("episodios")
-    public String muestraEpisodios(@RequestParam("clienteId") int Id,Model modelo){
+    public String muestraEpisodios(@RequestParam("clienteId") int Id,Model modelo, @Param("servicio") String servicio){
         //Obtener los clientes desde el DAO
         this.idepi=Id;
         List<Episodio> losEpisodios=repoEpisodio.findAllByid_Id(Id);
@@ -115,7 +185,11 @@ public class ControladorCRUD {
         return "redirect:/paciente/citas?clienteId="+this.idepi;
     }
     @PostMapping("insertarUsuario")
-    public String insertarUsuario(@ModelAttribute("usuario") Usuario elUsuario){
+    public String insertarUsuario(@ModelAttribute("usuario") Usuario elUsuario, BindingResult bindingResult){
+        userValidator.validate(elUsuario, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "formularioUsuario";
+        }
         String claveCrypt=encoder.encode(elUsuario.getClave());
         elUsuario.setClave(claveCrypt);
         System.out.println(elUsuario.getDNI()+"////////////////////////////////////////");
@@ -235,4 +309,12 @@ public class ControladorCRUD {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+    @Autowired
+    private ClienteService servicePaciente;
+
+    @Autowired
+    private EpisodioService serviceEpisodio;
+
+    @Autowired
+    private UserValidator userValidator;
 }

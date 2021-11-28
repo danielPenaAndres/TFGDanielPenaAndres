@@ -12,23 +12,51 @@
     <link href="${contextPath}/resources/estilos/estilos.css" rel="stylesheet">
 </head>
 <body>
-
-<h1>Lista de Pacientes</h1>
 <div>
+<h1>Lista de Pacientes</h1>
+</div>
+<div>
+    <div>
+    <form th:action="@{/paginaPaciente=1}" >
+        Buscar por DNI: <input type="text" name="DNI" />
+        &nbsp;
+        <input type="submit" value="Busqueda"/>
+        &nbsp;
+        <input type="button" value="Mostrar todos los pacientes" onclick="limpiarFiltro()"/>
+        &nbsp;
+    </form>
+        <form action="cliente">
+            <c:forEach var="cliente" items="${cliente}">
+                ${cliente}
+            </c:forEach>
+        </form>
+    </div>
+    <br/>
 <table border="1">
     <tr>
-        <th>Nombre</th>
-        <th>Apellidos</th>
-        <th>DNI</th>
-        <th>Fecha de Nacimiento</th>
-        <th>Sexo</th>
-        <th>Nacionalidad</th>
-        <th>Email</th>
-        <th>Modificar</th>
-        <th>Eliminar</th>
-        <th>Episodios</th>
-        <th>Citas</th>
+
     </tr>
+    <c:choose>
+        <c:when test="${clientes.size() > 0 }">
+            <th><a>Nombre</a></th>
+            <th><a>Apellidos</a></th>
+            <th><a>DNI</a></th>
+            <th><a>Fecha de Nacimiento</a></th>
+            <th><a>Sexo</a></th>
+            <th><a>Nacionalidad</a></th>
+            <th><a>Email</a></th>
+            <th>Modificar</th>
+            <th>Eliminar</th>
+            <th>Episodios</th>
+            <th>Citas</th>
+        </c:when>
+        <c:otherwise>
+            <tr align="center">
+                <td colspan="5">No hay usuarios disponibles</td>
+            </tr>
+        </c:otherwise>
+    </c:choose>
+
     <c:forEach var="clienteTemp" items="${clientes}">
         <c:url var="linkActualizar" value="/paciente/muestraFormularioActualizar">
             <c:param name="clienteId" value="${clienteTemp.id}"/>
@@ -58,12 +86,37 @@
     </c:forEach>
 
 </table>
-
-<br>
+    <c:if test="${clientes.size() > 0 }">
+        <div class="panel-footer" >
+            Mostrando ${number+1} de ${size+1} de ${totalElements}<br/>
+            <ul class="pagination">
+                <c:forEach begin="0" end="${totalPages-1}" var="page">
+                    <li class="page-item" >
+                        <a href="paginaPaciente=${page+1}" class="page-link">${page+1}</a>
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+    </c:if>
+</br>
     <div style="text-align:center;">
 <input type="button" value="Agregar nuevo paciente" onclick="window.location.href='muestraFormularioAgregar'; return false; "/>
     </div>
+    <div class="container-logout">
+        <c:if test="${pageContext.request.userPrincipal.name != null}">
+            <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+
+            <h2><input type="button" value="Salir" onclick="document.forms['logoutForm'].submit()"/> </h2>
+        </c:if>
+    </div>
 </div>
+<script type="text/javascript">
+    function limpiarFiltro(){
+        window.location='/paciente/lista';
+    }
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>

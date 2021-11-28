@@ -10,10 +10,10 @@ public class Controlador {
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+            model.addAttribute("error", "Tu usuario o contraseña son invalidos.");
 
         if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+            model.addAttribute("message", "Se ha salido correctamente de la aplicacion.");
 
         return "login";
     }

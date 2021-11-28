@@ -12,6 +12,14 @@
 <body>
 <form:form action="insertarCliente" modelAttribute="cliente" method="POST">
     <form:hidden path="id"/>
+
+    <c:if test="${cliente.DNI == null}">
+        <h1>Nuevo Paciente</h1>
+    </c:if>
+
+    <c:if test="${cliente.DNI != null}">
+        <h1>Paciente: ${cliente.DNI}</h1>
+    </c:if>
 <table>
     <tr>
         <td>Nombre: </td>
@@ -27,7 +35,7 @@
     </tr>
     <tr>
         <td>Fecha De Nacimiento: </td>
-        <td><form:input path="fechaDeNacimiento"/> </td>
+        <td><form:input type="date" path="fechaDeNacimiento"/> </td>
     </tr>
     <tr>
         <td>Sexo: </td>
@@ -48,6 +56,9 @@
     </tr>
 </table>
 </form:form>
+<form class="HOME" action="<c:url value="/paciente/lista" />" method="GET">
+    <input type="submit" name="action" value="HOME" />
+</form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>

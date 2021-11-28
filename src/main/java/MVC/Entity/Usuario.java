@@ -62,6 +62,8 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
+    @Length(min = 2, message = "*Your password must have at least 5 characters")
+    @NotEmpty(message = "*Please provide your password")
     @Column(name = "clave")
     private String clave;
     @Column(name = "nombre")
@@ -72,8 +74,7 @@ public class Usuario {
     private String DNI;
     @Column(name = "tipo")
     private String tipo;
-    //@Length(min = 2, message = "*Your password must have at least 5 characters")
-    //@NotEmpty(message = "*Please provide your password")
+
 
 
 }

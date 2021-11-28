@@ -45,7 +45,19 @@
     <div style="text-align:center;">
 <input type="button" value="Agregar nueva Cita" onclick="window.location.href='muestraFormularioCita'; return false; "/>
     </div>
+    <div class="container-logout">
+        <c:if test="${pageContext.request.userPrincipal.name != null}">
+            <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+
+            <h2><input type="button" value="Salir" onclick="document.forms['logoutForm'].submit()"/> </h2>
+        </c:if>
+    </div>
 </div>
+<form class="HOME2" action="<c:url value="/paciente/lista" />" method="GET">
+    <input type="submit" name="action" value="HOME" />
+</form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
