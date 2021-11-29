@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HOME</title>
+    <title>Inicio</title>
 </head>
 <body>
 <% response.sendRedirect("paciente/lista"); %>
