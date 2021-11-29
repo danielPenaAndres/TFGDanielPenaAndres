@@ -53,20 +53,28 @@
             <form:errors path="fechaDeNacimiento"></form:errors>
         </div>
     </spring:bind>
-    <spring:bind path="nacionalidad">
+    <spring:bind path="pais">
         <div class="form-group ${status.error ? 'has-error' : ''}">
-            <form:input type="text" path="nacionalidad" class="form-control" placeholder="Nacionalidad"
-                        autofocus="true"></form:input>
-            <form:errors path="nacionalidad"></form:errors>
+            <form:select id="pais" name="pais" type="text" path="pais" class="form-control" placeholder="Pais"
+                         autofocus="true">
+                <form:option value="NONE" label="--- Seleccione un pais ---"/>
+                <form:options items="${pais}" />
+            </form:select>
+            <form:errors path="pais"></form:errors>
         </div>
     </spring:bind>
+
     <spring:bind path="sexo">
         <div class="form-group ${status.error ? 'has-error' : ''}">
-            <form:input type="text" path="sexo" class="form-control" placeholder="Sexo"
-                        autofocus="true"></form:input>
+            <form:select id="sexo" name="sexo" type="text" path="sexo" class="form-control" placeholder="Sexo"
+                         autofocus="true">
+                <option value="NONE">--- Seleccionar el sexo del paciente ---</option>
+                <option value="Hombre">Hombre</option>
+                <option value="Mujer">Mujer</option></form:select>
             <form:errors path="sexo"></form:errors>
         </div>
     </spring:bind>
+
     </br>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
 </form:form>

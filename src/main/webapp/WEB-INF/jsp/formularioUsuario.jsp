@@ -37,11 +37,16 @@
         </spring:bind>
     <spring:bind path="Tipo">
         <div class="form-group ${status.error ? 'has-error' : ''}">
-            <form:input type="text" path="Tipo" class="form-control" placeholder="Tipo"
-                        autofocus="true"></form:input>
+            <form:select id="Tipo" name="Tipo" type="text" path="Tipo" class="form-control" placeholder="Tipo"
+                         autofocus="true">
+                <option value="NONE">--- Seleccionar el tipo de usuario ---</option>
+                <option value="MEDICO">MEDICO</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="USUARIO">USUARIO</option></form:select>
             <form:errors path="Tipo"></form:errors>
         </div>
     </spring:bind>
+
     <spring:bind path="nombre">
         <div class="form-group ${status.error ? 'has-error' : ''}">
             <form:input type="text" path="nombre" class="form-control" placeholder="Nombre"
@@ -56,6 +61,7 @@
             <form:errors path="apellidos"></form:errors>
         </div>
     </spring:bind>
+
 </br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
     </form:form>

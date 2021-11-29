@@ -64,12 +64,12 @@ public class Paciente {
         this.sexo = sexo;
     }
 
-    public String getNacionalidad() {
-        return nacionalidad;
+    public String getPais() {
+        return pais;
     }
 
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
     public String getEmail() {
@@ -105,7 +105,7 @@ public class Paciente {
                 ", DNI='" + DNI + '\'' +
                 ", fechaDeNacimiento=" + fechaDeNacimiento +
                 ", sexo='" + sexo + '\'' +
-                ", nacionalidad='" + nacionalidad + '\'' +
+                ", pais='" + pais + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
@@ -135,8 +135,8 @@ public class Paciente {
     private String fechaDeNacimiento;
     @Column(name = "sexo")
     private String sexo;
-    @Column(name = "nacionalidad")
-    private String nacionalidad;
+    @Column(name = "pais")
+    private String pais;
     @Email(message = "*Please provide a valid Email")
     @NotEmpty(message = "*Please provide an email")
     @Column(name = "email")

@@ -55,9 +55,12 @@ public class PacienteValidator implements Validator {
         if (paciente.getApellidos().matches(".*\\d.*")) {
             errors.rejectValue("apellidos", "Numeros.paciente.apellidos");
         }
+        if (paciente.getSexo().equals("NONE")){
+            errors.rejectValue("sexo", "NotEmpty");
+        }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fechaDeNacimiento", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nacionalidad", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pais", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sexo", "NotEmpty");
     }
 }

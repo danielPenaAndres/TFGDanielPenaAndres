@@ -37,15 +37,23 @@
     </spring:bind>
     <spring:bind path="servicio">
         <div class="form-group ${status.error ? 'has-error' : ''}">
-            <form:input type="text" path="servicio" class="form-control" placeholder="Servicio"
-                        autofocus="true"></form:input>
+            <form:select id="servicio" name="servicio" type="text" path="servicio" class="form-control" placeholder="Servicio"
+                         autofocus="true">
+                <form:option value="NONE" label="--- Seleccione un servicio ---"/>
+                <form:options items="${servicio}" />
+            </form:select>
             <form:errors path="servicio"></form:errors>
         </div>
     </spring:bind>
+
+
     <spring:bind path="prestacion">
         <div class="form-group ${status.error ? 'has-error' : ''}">
-            <form:input type="text" path="prestacion" class="form-control" placeholder="Prestacion"
-                        autofocus="true"></form:input>
+            <form:select id="prestacion" name="prestacion" type="text" path="prestacion" class="form-control" placeholder="Prestacion"
+                         autofocus="true">
+                <form:option value="NONE" label="--- Seleccione una prestacion ---"/>
+                <form:options items="${prestacion}" />
+            </form:select>
             <form:errors path="prestacion"></form:errors>
         </div>
     </spring:bind>

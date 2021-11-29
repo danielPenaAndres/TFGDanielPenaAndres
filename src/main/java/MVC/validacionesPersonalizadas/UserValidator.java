@@ -62,6 +62,8 @@ public class UserValidator implements Validator {
         if (user.getApellidos().matches(".*\\d.*")) {
             errors.rejectValue("apellidos", "Numeros.usuario.apellidos");
         }
-
+        if (user.getTipo().equals("NONE")){
+            errors.rejectValue("Tipo", "NotEmpty");
+        }
     }
 }

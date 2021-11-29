@@ -33,13 +33,18 @@
             <form:errors path="observaciones"></form:errors>
         </div>
     </spring:bind>
+
     <spring:bind path="servicio">
         <div class="form-group ${status.error ? 'has-error' : ''}">
-            <form:input type="text" path="servicio" class="form-control" placeholder="Servicio"
-                        autofocus="true"></form:input>
+            <form:select id="servicio" name="servicio" type="text" path="servicio" class="form-control" placeholder="Servicio"
+                         autofocus="true">
+                <form:option value="NONE" label="--- Seleccione un servicio ---"/>
+                <form:options items="${servicio}" />
+            </form:select>
             <form:errors path="servicio"></form:errors>
         </div>
     </spring:bind>
+
     </br>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
 </form:form>

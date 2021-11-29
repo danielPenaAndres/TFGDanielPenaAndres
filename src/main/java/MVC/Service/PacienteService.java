@@ -17,7 +17,7 @@ public class PacienteService {
     private IPacienteRepo repo;
 
     public Page<Paciente> listAll(int pageNumber,String DNI){
-         Pageable pageable=PageRequest.of(pageNumber - 1,10);
+         Pageable pageable=PageRequest.of(pageNumber - 1,9);
         if (DNI!=null){
             return repo.findAll(DNI,pageable);
         }

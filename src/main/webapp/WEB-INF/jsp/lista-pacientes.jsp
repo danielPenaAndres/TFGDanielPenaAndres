@@ -43,7 +43,7 @@
             <th><a>DNI</a></th>
             <th><a>Fecha de Nacimiento</a></th>
             <th><a>Sexo</a></th>
-            <th><a>Nacionalidad</a></th>
+            <th><a>Pais</a></th>
             <th><a>Email</a></th>
             <th>Modificar</th>
             <th>Eliminar</th>
@@ -76,7 +76,7 @@
             <td>${pacienteTemp.DNI}</td>
             <td>${pacienteTemp.fechaDeNacimiento}</td>
             <td>${pacienteTemp.sexo}</td>
-            <td>${pacienteTemp.nacionalidad}</td>
+            <td>${pacienteTemp.pais}</td>
             <td>${pacienteTemp.email}</td>
             <td><a href="${linkActualizar}" ><input type="button" value="Modificar"/></a> </td>
             <td><a href="${linkEliminar}" ><input type="button" value="Eliminar" onclick="if (!(confirm('¿Estas seguro en elimar el registro?'))) return false"/></a> </td>

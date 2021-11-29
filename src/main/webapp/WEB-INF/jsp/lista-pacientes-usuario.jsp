@@ -22,7 +22,7 @@
         <th>DNI</th>
         <th>Fecha de Nacimiento</th>
         <th>Sexo</th>
-        <th>Nacionalidad</th>
+        <th>Pais</th>
         <th>Email</th>
         <th>Episodios</th>
         <th>Citas</th>
@@ -40,7 +40,7 @@
             <td>${pacienteTemp.DNI}</td>
             <td>${pacienteTemp.fechaDeNacimiento}</td>
             <td>${pacienteTemp.sexo}</td>
-            <td>${pacienteTemp.nacionalidad}</td>
+            <td>${pacienteTemp.pais}</td>
             <td>${pacienteTemp.email}</td>
             <td><a href="${linkEpisodios}" ><input type="button" value="Episodios"/></a> </td>
             <td><a href="${linkCitas}" ><input type="button" value="Citas"/></a> </td>

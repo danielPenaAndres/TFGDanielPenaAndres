@@ -1,6 +1,8 @@
 package MVC.validacionesPersonalizadas;
 
 
+import MVC.Entity.Cita;
+import MVC.Entity.Episodio;
 import MVC.Entity.Paciente;
 import MVC.repo.IEpisodioRepo;
 import MVC.repo.IPacienteRepo;
@@ -25,8 +27,12 @@ public class EpisodioValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
+        Episodio episodio = (Episodio) o;
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fechaDelEpisodio", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "observaciones", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "servicio", "NotEmpty");
+        if (episodio.getServicio().equals("NONE")){
+            errors.rejectValue("servicio", "NotEmpty");
+        }
     }
 }

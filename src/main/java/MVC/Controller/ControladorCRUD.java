@@ -1,16 +1,10 @@
 package MVC.Controller;
 
 
-import MVC.Entity.Cita;
-import MVC.Entity.Paciente;
-import MVC.Entity.Episodio;
-import MVC.Entity.Usuario;
+import MVC.Entity.*;
 import MVC.Service.PacienteService;
 import MVC.Service.EpisodioService;
-import MVC.repo.ICitaRepo;
-import MVC.repo.IPacienteRepo;
-import MVC.repo.IEpisodioRepo;
-import MVC.repo.IUsuarioRepo;
+import MVC.repo.*;
 import MVC.validacionesPersonalizadas.CitaValidator;
 import MVC.validacionesPersonalizadas.EpisodioValidator;
 import MVC.validacionesPersonalizadas.PacienteValidator;
@@ -60,6 +54,7 @@ public class ControladorCRUD {
             List<Usuario> losUsuarios=repoUsuario.findAll();
             //Agregar pacientes desde al modelo
             modelo.addAttribute("usuarios",losUsuarios);
+
             return "lista-usuarios";}
         else{
             System.out.println("/////////////////USUARIO NORMAL//////////////////////////");
@@ -216,6 +211,8 @@ public class ControladorCRUD {
         //Bind de datos
         Episodio elEpisodio=new Episodio();
         modelo.addAttribute("episodio",elEpisodio);
+        List<String> losServicios=repoServicio.findAllServicios();
+        modelo.addAttribute("servicio",losServicios);
         return "formularioEpisodios";
     }
     @RequestMapping("muestraFormularioCita")
@@ -223,6 +220,10 @@ public class ControladorCRUD {
         //Bind de datos
         Cita laCita=new Cita();
         modelo.addAttribute("cita",laCita);
+        List<String> lasPrestaciones=repoPrestacion.findAllPrestaciones();
+        modelo.addAttribute("prestacion",lasPrestaciones);
+        List<String> losServicios=repoServicio.findAllServicios();
+        modelo.addAttribute("servicio",losServicios);
         return "formularioCitas";
     }
     @RequestMapping("muestraFormularioAgregar")
@@ -230,6 +231,8 @@ public class ControladorCRUD {
         //Bind de datos
         Paciente elPaciente=new Paciente();
         modelo.addAttribute("paciente",elPaciente);
+        List<String> losPaises=repoPais.findAllPaises();
+        modelo.addAttribute("pais",losPaises);
         return "formularioPaciente";
     }
     @RequestMapping("muestraFormularioUsuario")
@@ -276,6 +279,8 @@ public class ControladorCRUD {
         Paciente elPaciente=repoPaciente.getById(Id);
         //Obtener el paciente como atributo del modelo
         modelo.addAttribute("paciente",elPaciente);
+        List<String> losPaises=repoPais.findAllPaises();
+        modelo.addAttribute("pais",losPaises);
         //enviar al formulario
         return "formularioPaciente";
     }
@@ -285,6 +290,8 @@ public class ControladorCRUD {
         Episodio elEpisodio=repoEpisodio.getById(Id);
         //Obtener el paciente como atributo del modelo
         modelo.addAttribute("episodio",elEpisodio);
+        List<String> losServicios=repoServicio.findAllServicios();
+        modelo.addAttribute("servicio",losServicios);
         //enviar al formulario
         return "formularioEpisodios";
     }
@@ -294,6 +301,10 @@ public class ControladorCRUD {
         Cita laCita=repoCitas.getById(Id);
         //Obtener el paciente como atributo del modelo
         modelo.addAttribute("cita",laCita);
+        List<String> lasPrestaciones=repoPrestacion.findAllPrestaciones();
+        modelo.addAttribute("prestacion",lasPrestaciones);
+        List<String> losServicios=repoServicio.findAllServicios();
+        modelo.addAttribute("servicio",losServicios);
         //enviar al formulario
         return "formularioCitas";
     }
@@ -320,6 +331,15 @@ public class ControladorCRUD {
 
     @Autowired
     private IUsuarioRepo repoUsuario;
+
+    @Autowired
+    private IPaisRepo repoPais;
+
+    @Autowired
+    private IServicioRepo repoServicio;
+
+    @Autowired
+    private IPrestacionRepo repoPrestacion;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
