@@ -1,6 +1,10 @@
 package MVC.Entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="pais")
@@ -40,6 +44,7 @@ public class Pais {
         this.ISO = ISO;
     }
 
+
     @Override
     public String toString() {
         return "Pais{" +
@@ -60,5 +65,7 @@ public class Pais {
     private String gentilicio;
     @Column(name = "ISO")
     private String ISO;
+
+
 
 }

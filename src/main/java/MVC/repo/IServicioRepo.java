@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface IServicioRepo extends JpaRepository<Servicio, String> {
-    @Query("SELECT DISTINCT p.idServicio from Servicio p")
+    @Query("SELECT DISTINCT concat(p.idServicio, ' ' ,p.descripcion) from Servicio p")
     List<String> findAllServicios();
 
 }

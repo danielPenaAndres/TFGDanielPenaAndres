@@ -4,6 +4,7 @@ package MVC.Controller;
 import MVC.Entity.*;
 import MVC.Service.PacienteService;
 import MVC.Service.EpisodioService;
+import MVC.Service.UserService;
 import MVC.repo.*;
 import MVC.validacionesPersonalizadas.CitaValidator;
 import MVC.validacionesPersonalizadas.EpisodioValidator;
@@ -51,11 +52,12 @@ public class ControladorCRUD {
         else if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))){
 
             System.out.println("/////////////////USUARIO ADMIN//////////////////////////");
-            List<Usuario> losUsuarios=repoUsuario.findAll();
+            List<Usuario> losUsuarios=serviceUsuario.listAll(DNI);
             //Agregar pacientes desde al modelo
             modelo.addAttribute("usuarios",losUsuarios);
 
-            return "lista-usuarios";}
+            return paginaUsuario(modelo,1,DNI);
+        }
         else{
             System.out.println("/////////////////USUARIO NORMAL//////////////////////////");
             //Obtener los pacientes desde el DAO
@@ -94,33 +96,33 @@ public class ControladorCRUD {
             }
 
     }
-    @RequestMapping("/paginaEpisodio={pageNumber}")
-    public String paginaEpisodio(Model modelo, @PathVariable("pageNumber") int pageNumber,@Param("servicio") String servicio){
+    @RequestMapping("/paginaUsuario={pageNumber}")
+    public String paginaUsuario(Model modelo, @PathVariable("pageNumber") int pageNumber,@Param("DNI") String DNI){
 
-        if (servicio==null || servicio.isEmpty() ){
+        if (DNI==null || DNI.isEmpty() ){
 
-            Page<Episodio> pages=serviceEpisodio.listAll(pageNumber,servicio);
+            Page<Usuario> pages=serviceUsuario.listAll(pageNumber,DNI);
             long totalElements= pages.getTotalElements();
             int totalPages=pages.getTotalPages();
-            List<Episodio> episodios=pages.getContent();
+            List<Usuario> usuarios=pages.getContent();
             modelo.addAttribute("number", pages.getNumber());
             modelo.addAttribute("totalPages", totalPages);
             modelo.addAttribute("totalElements", totalElements);
             modelo.addAttribute("size", pages.getSize());
-            modelo.addAttribute("episodios",episodios);
-            return "lista-episodios";
+            modelo.addAttribute("usuarios",usuarios);
+            return "lista-usuarios";
         }
         else {
-            Page<Episodio> pages=serviceEpisodio.listAll(pageNumber,servicio);
+            Page<Usuario> pages=serviceUsuario.listAll(pageNumber,DNI);
             long totalElements= pages.getTotalElements();
             int totalPages=pages.getTotalPages();
-            List<Episodio> episodios=serviceEpisodio.listAll(servicio);
+            List<Usuario> usuarios=serviceUsuario.listAll(DNI);
             modelo.addAttribute("number", pages.getNumber());
             modelo.addAttribute("totalPages", totalPages);
             modelo.addAttribute("totalElements", totalElements);
             modelo.addAttribute("size", pages.getSize());
-            modelo.addAttribute("episodios",episodios);
-            return "lista-episodios";
+            modelo.addAttribute("usuarios",usuarios);
+            return "lista-usuarios";
         }
 
     }
@@ -346,6 +348,9 @@ public class ControladorCRUD {
 
     @Autowired
     private PacienteService servicePaciente;
+
+    @Autowired
+    private UserService serviceUsuario;
 
     @Autowired
     private EpisodioService serviceEpisodio;

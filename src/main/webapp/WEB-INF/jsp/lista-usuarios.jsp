@@ -16,14 +16,40 @@
 
 <h1>Lista de Usuarios</h1>
 <div>
+    <div>
+        <form th:action="@{/paginaUsuario=1}" >
+            Buscar por DNI: <input type="text" name="DNI" />
+            &nbsp;
+            <input type="submit" value="Busqueda"/>
+            &nbsp;
+            <input type="button" value="Mostrar todos los usarios" onclick="limpiarFiltro()"/>
+            &nbsp;
+        </form>
+        <form action="usuario">
+            <c:forEach var="usuario" items="${usuario}">
+                ${usuario}
+            </c:forEach>
+        </form>
+    </div>
+    <br/>
     <table class="table table-striped">
     <tr>
+    </tr>
+        <c:choose>
+        <c:when test="${usuarios.size() > 0 }">
         <th>Nombre</th>
         <th>Apellidos</th>
         <th>DNI</th>
         <th>Clave</th>
         <th>Tipo</th>
-    </tr>
+        </c:when>
+
+        <c:otherwise>
+            <tr align="center">
+                <td colspan="5">No hay usuarios disponibles</td>
+            </tr>
+        </c:otherwise>
+        </c:choose>
     <c:forEach var="usuarioTemp" items="${usuarios}">
         <c:url var="linkActualizar" value="/paciente/muestraUsuarioActualizar">
             <c:param name="usuarioId" value="${usuarioTemp.id}"/>
@@ -43,8 +69,19 @@
     </c:forEach>
 
 </table>
-
-<br>
+    <c:if test="${usuarios.size() > 0 }">
+        <div class="panel-footer" >
+            Mostrando ${number+1} de ${size+1} de ${totalElements}<br/>
+            <ul class="pagination">
+                <c:forEach begin="0" end="${totalPages-1}" var="page">
+                    <li class="page-item" >
+                        <a href="paginaUsuario=${page+1}" class="page-link">${page+1}</a>
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+    </c:if>
+    </br>
     <div style="text-align:center;">
 <input type="button" value="Agregar nuevo usuario" onclick="window.location.href='muestraFormularioUsuario'; return false; "/>
     </div>
@@ -58,6 +95,12 @@
         </c:if>
     </div>
 </div>
+
+<script type="text/javascript">
+    function limpiarFiltro(){
+        window.location='/paciente/lista';
+    }
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>

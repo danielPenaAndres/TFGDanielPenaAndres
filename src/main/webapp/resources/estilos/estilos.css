@@ -9,6 +9,11 @@ table{
     text-align: center;
     margin: auto;
 }
+.btn-lg{
+    width: 50%;
+    text-align: center;
+    margin: auto;
+}
 
 .form-control{
     width: 50%;

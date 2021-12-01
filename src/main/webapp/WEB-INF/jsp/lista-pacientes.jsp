@@ -53,7 +53,7 @@
         </c:when>
         <c:otherwise>
             <tr align="center">
-                <td colspan="5">No hay usuarios disponibles</td>
+                <td colspan="5">No hay pacientes disponibles</td>
             </tr>
         </c:otherwise>
     </c:choose>

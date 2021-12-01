@@ -30,7 +30,7 @@
       <span>${error}</span>
       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Logear</button>
+      <button class="btn btn-lg btn-primary" type="submit">Logear</button>
     </div>
   </form>
 </div>

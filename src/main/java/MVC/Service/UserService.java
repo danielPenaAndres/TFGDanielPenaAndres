@@ -1,11 +1,15 @@
 package MVC.Service;
 
+import MVC.Entity.Paciente;
 import MVC.Entity.Usuario;
 
 import MVC.repo.IUsuarioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Role;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -74,6 +78,24 @@ public class UserService implements UserDetailsService{
         else if (us.getTipo().equalsIgnoreCase("USUARIO"))grantedAuthorities.add(new SimpleGrantedAuthority("USUARIO"));
 
         return new org.springframework.security.core.userdetails.User(us.getDNI(), us.getClave(), grantedAuthorities);
+    }
+
+
+    public Page<Usuario> listAll(int pageNumber, String DNI){
+        Pageable pageable= PageRequest.of(pageNumber - 1,9);
+        if (DNI!=null){
+            return repo.findAll(DNI,pageable);
+        }
+
+        return repo.findAll(pageable);
+    }
+
+    public List<Usuario> listAll(String DNI){
+        if (DNI!=null){
+            return repo.findAll(DNI);
+        }
+
+        return repo.findAll();
     }
 
 }
