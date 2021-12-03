@@ -33,7 +33,7 @@
         </form>
     </div>
     <br/>
-<table border="1">
+<table class="table table-striped table-hover table-bordered border border-dark" >
     <tr>
 
     </tr>

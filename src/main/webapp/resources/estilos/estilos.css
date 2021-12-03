@@ -9,6 +9,11 @@ table{
     text-align: center;
     margin: auto;
 }
+.table-striped{
+    width: 75%;
+    text-align: center;
+    margin: auto;
+}
 .btn-lg{
     width: 50%;
     text-align: center;
@@ -47,4 +52,9 @@ table{
 }
 .HOME2{
     position: absolute; left: 20%; right: 20%; bottom: 8%
+}
+th,td{
+    border-color: black !important;
+    border: 2px solid black;
+
 }

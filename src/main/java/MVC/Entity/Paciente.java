@@ -24,6 +24,22 @@ public class Paciente {
         this.id = id;
     }
 
+    public Set<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(Set<Episodio> episodios) {
+        this.episodios = episodios;
+    }
+
+    public Set<Cita> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(Set<Cita> citas) {
+        this.citas = citas;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -80,22 +96,6 @@ public class Paciente {
         this.email = email;
     }
 
-    public Set<Episodio> getEpisodios() {
-        return episodios;
-    }
-
-    public void setEpisodios(Set<Episodio> episodios) {
-        this.episodios = episodios;
-    }
-
-    public Set<Cita> getCitas() {
-        return citas;
-    }
-
-    public void setCitas(Set<Cita> citas) {
-        this.citas = citas;
-    }
-
     @Override
     public String toString() {
         return "Paciente{" +
@@ -135,10 +135,11 @@ public class Paciente {
     private String fechaDeNacimiento;
     @Column(name = "sexo")
     private String sexo;
-    @Column(name = "pais")
+   @Column(name = "pais")
     private String pais;
     @Email(message = "*Please provide a valid Email")
     @NotEmpty(message = "*Please provide an email")
     @Column(name = "email")
     private String email;
+
 }

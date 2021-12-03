@@ -15,7 +15,7 @@
 
 <h1>Lista de Pacientes</h1>
 <div>
-<table border="1">
+    <table class="table table-striped table-hover table-bordered border border-dark" >
     <tr>
         <th>Nombre</th>
         <th>Apellidos</th>

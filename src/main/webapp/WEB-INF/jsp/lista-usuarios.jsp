@@ -32,7 +32,7 @@
         </form>
     </div>
     <br/>
-    <table class="table table-striped">
+    <table class="table table-striped table-hover table-bordered">
     <tr>
     </tr>
         <c:choose>

@@ -60,7 +60,7 @@ public class ControladorCRUD {
         }
         else{
             System.out.println("/////////////////USUARIO NORMAL//////////////////////////");
-            //Obtener los pacientes desde el DAO
+            //Obtener los pacientes
             List<Paciente> losPacientes=repoPaciente.findAllByDNI(username);
             //Agregar pacientes desde al modelo
             modelo.addAttribute("pacientes",losPacientes);

@@ -15,7 +15,7 @@
 
 <h1>Lista de Citas</h1>
 <div>
-<table border="1">
+    <table class="table table-striped table-hover table-bordered border border-dark" >
     <tr>
         <th>Fecha de la cita</th>
         <th>Observaciones</th>
