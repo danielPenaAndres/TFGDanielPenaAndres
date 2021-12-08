@@ -19,10 +19,10 @@ public interface IEpisodioRepo extends JpaRepository<Episodio, Integer> {
 
     List<Episodio> findAllByid_Id(int id);
 
-    @Query("SELECT p from Episodio p WHERE p.servicio LIKE %?1%")
+    @Query("SELECT p from Episodio p WHERE p.servicio LIKE %?1% order by p.fechaDelEpisodio asc")
     List<Episodio> findAll(String servicio);
 
-    @Query("SELECT p from Episodio p WHERE p.servicio  LIKE %?1%")
+    @Query("SELECT p from Episodio p WHERE p.servicio  LIKE %?1% order by p.fechaDelEpisodio asc")
     Page<Episodio> findAll(String servicio, Pageable pageable);
 
 

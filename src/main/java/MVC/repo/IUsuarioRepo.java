@@ -19,4 +19,7 @@ public interface IUsuarioRepo extends JpaRepository<Usuario, Integer> {
 
     @Query("SELECT p from Usuario p WHERE p.DNI LIKE %?1%")
     Page<Usuario> findAll(String DNI, Pageable pageable);
+
+    @Query("SELECT DISTINCT concat(p.DNI, ' ' ,p.nombre,' ',p.apellidos) from Usuario p where p.tipo='MEDICO'")
+    List<String> findAllMedicos();
 }

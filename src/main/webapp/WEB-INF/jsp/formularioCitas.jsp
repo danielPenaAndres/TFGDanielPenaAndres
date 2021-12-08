@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>Formulario Citas</title>
+    <link rel="icon"  href="${contextPath}/resources/imgs/favico.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="${contextPath}/resources/estilos/estilos.css" rel="stylesheet">
 </head>
@@ -46,13 +47,22 @@
         </div>
     </spring:bind>
 
-
     <spring:bind path="prestacion">
         <div class="form-group ${status.error ? 'has-error' : ''}">
             <form:select id="prestacion" name="prestacion" type="text" path="prestacion" class="form-control" placeholder="Prestacion"
                          autofocus="true">
                 <form:option value="NONE" label="--- Seleccione una prestacion ---"/>
                 <form:options items="${prestacion}" />
+            </form:select>
+            <form:errors path="prestacion"></form:errors>
+        </div>
+    </spring:bind>
+    <spring:bind path="medico">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:select id="medico" name="medico" type="text" path="medico" class="form-control" placeholder="Medico"
+                         autofocus="true">
+                <form:option value="NONE" label="--- Selecciona un medico ---"/>
+                <form:options items="${medico}" />
             </form:select>
             <form:errors path="prestacion"></form:errors>
         </div>

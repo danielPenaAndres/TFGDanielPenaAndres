@@ -8,21 +8,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Usuarios</title>
+    <title>Clinica Sagrado Corazon</title>
+    <link rel="icon"  href="${contextPath}/resources/imgs/favico.ico" >
     <link href="${contextPath}/resources/estilos/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/estilos/estilos.css" rel="stylesheet">
 </head>
 <body>
 
-<h1>Lista de Usuarios</h1>
+<h1 class="display-1"><i class="fas fa-users"></i></i>  Lista de Usuarios</h1>
 <div>
     <div>
         <form th:action="@{/paginaUsuario=1}" >
-            Buscar por DNI: <input type="text" name="DNI" />
+            Buscar por DNI: <input type="text" name="DNI" class="btn btn-light btn-outline-dark"  />
             &nbsp;
-            <input type="submit" value="Busqueda"/>
+            <input type="submit" class= "btn btn-primary btn-rounded" value="Busqueda"/>
             &nbsp;
-            <input type="button" value="Mostrar todos los usarios" onclick="limpiarFiltro()"/>
+            <input type="button" class= "btn btn-secondary btn-rounded" value="Mostrar todos los usarios" onclick="limpiarFiltro()"/>
             &nbsp;
         </form>
         <form action="usuario">
@@ -32,16 +33,16 @@
         </form>
     </div>
     <br/>
-    <table class="table table-striped table-hover table-bordered">
-    <tr>
-    </tr>
+    <table class="table table-striped table-hover table-bordered border border-dark table-light" >
         <c:choose>
         <c:when test="${usuarios.size() > 0 }">
+            <tr>
         <th>Nombre</th>
         <th>Apellidos</th>
         <th>DNI</th>
         <th>Clave</th>
         <th>Tipo</th>
+            </tr>
         </c:when>
 
         <c:otherwise>
@@ -63,8 +64,8 @@
             <td>${usuarioTemp.DNI}</td>
             <td class="hidetext">${usuarioTemp.clave}</td>
             <td>${usuarioTemp.tipo}</td>
-            <td><a href="${linkActualizar}" ><input type="button" value="Modificar"/></a> </td>
-            <td><a href="${linkEliminar}" ><input type="button" value="Eliminar" onclick="if (!(confirm('¿Estas seguro en elimar el registro?'))) return false"/></a> </td>
+            <td><a href="${linkActualizar}" ><input type="button" class="btn btn-outline-dark" value="Modificar"/></a> </td>
+            <td><a href="${linkEliminar}" ><input type="button" class="btn btn-outline-dark" value="Eliminar" onclick="if (!(confirm('¿Estas seguro en elimar el registro?'))) return false"/></a> </td>
         </tr>
     </c:forEach>
 
@@ -83,7 +84,7 @@
     </c:if>
     </br>
     <div style="text-align:center;">
-<input type="button" value="Agregar nuevo usuario" onclick="window.location.href='muestraFormularioUsuario'; return false; "/>
+<input type="button" value="Agregar nuevo usuario" class="btn btn-primary" onclick="window.location.href='muestraFormularioUsuario'; return false; "/>
     </div>
     <div class="container-logout">
         <c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -91,7 +92,7 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>
 
-            <h2><input type="button" value="Salir" onclick="document.forms['logoutForm'].submit()"/> </h2>
+            <h2><input type="button" value="Salir" class="btn btn-danger" onclick="document.forms['logoutForm'].submit()"/> </h2>
         </c:if>
     </div>
 </div>
@@ -103,5 +104,6 @@
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/f082ed78dd.js" crossorigin="anonymous"></script>
 </body>
 </html>

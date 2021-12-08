@@ -36,5 +36,8 @@ public class CitaValidator implements Validator {
         if (cita.getServicio().equals("NONE")){
             errors.rejectValue("servicio", "NotEmpty");
         }
+        if (cita.getMedico().equals("NONE")){
+            errors.rejectValue("medico", "NotEmpty");
+        }
     }
 }

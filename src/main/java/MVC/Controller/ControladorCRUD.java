@@ -36,6 +36,7 @@ public class ControladorCRUD {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails)principal).getUsername();
+        currentDNI=((UserDetails)principal).getUsername();
 
 
         if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("MEDICO"))){
@@ -70,7 +71,7 @@ public class ControladorCRUD {
     public String paginaPaciente(Model modelo, @PathVariable("pageNumber") int pageNumber,@Param("DNI") String DNI){
 
             if (DNI==null || DNI.isEmpty() ){
-
+                this.idepi=0;
                 Page<Paciente> pages=servicePaciente.listAll(pageNumber,DNI);
                 long totalElements= pages.getTotalElements();
                 int totalPages=pages.getTotalPages();
@@ -83,6 +84,7 @@ public class ControladorCRUD {
                 return "lista-pacientes";
             }
             else {
+                this.idepi=0;
                 Page<Paciente> pages=servicePaciente.listAll(pageNumber,DNI);
                 long totalElements= pages.getTotalElements();
                 int totalPages=pages.getTotalPages();
@@ -133,6 +135,7 @@ public class ControladorCRUD {
         List<Episodio> losEpisodios=repoEpisodio.findAllByid_Id(Id);
         //Agregar pacientes desde al modelo
         modelo.addAttribute("episodios",losEpisodios);
+        modelo.addAttribute("id",this.idepi);
         return "lista-episodios";
     }
     @RequestMapping("citas")
@@ -142,7 +145,18 @@ public class ControladorCRUD {
         List<Cita> lasCitas=repoCitas.findAllByid_Id(Id);
         //Agregar pacientes desde al modelo
         modelo.addAttribute("citas",lasCitas);
+        modelo.addAttribute("id",this.idepi);
+        misCitas=false;
         return "lista-citas";
+    }
+    @RequestMapping("misCitas")
+    public String misCitas(Model modelo){
+        //Obtener los pacientes desde el DAO
+        List<Cita> lasCitas=repoCitas.findCitasMedico(currentDNI);
+        //Agregar pacientes desde al modelo
+        modelo.addAttribute("citas",lasCitas);
+        misCitas=true;
+        return "lista-misCitas";
     }
     @RequestMapping("episodiosUsuario")
     public String muestraEpisodiosUsuario(@RequestParam("pacienteId") int Id,Model modelo){
@@ -163,21 +177,25 @@ public class ControladorCRUD {
         return "lista-citas-usuario";
     }
     @PostMapping("insertarPaciente")
-    public String insertarPaciente(@ModelAttribute("paciente") Paciente elPaciente, BindingResult bindingResult){
+    public String insertarPaciente(@ModelAttribute("paciente") Paciente elPaciente, BindingResult bindingResult,Model modelo){
         pacienteValidator.validate(elPaciente, bindingResult);
         if (bindingResult.hasErrors()) {
+            List<String> losPaises=repoPais.findAllPaises();
+            modelo.addAttribute("pais",losPaises);
             return "formularioPaciente";
         }
         repoPaciente.save(elPaciente);
         return "redirect:/paciente/lista";
     }
     @PostMapping("insertarEpisodio")
-    public String insertarEpisodio(@ModelAttribute("episodio") Episodio elEpisodio,BindingResult bindingResult){
+    public String insertarEpisodio(@ModelAttribute("episodio") Episodio elEpisodio,BindingResult bindingResult,Model modelo){
         Paciente clie=new Paciente();
         clie.setId(this.idepi);
         elEpisodio.setId(clie);
         episodioValidator.validate(elEpisodio, bindingResult);
         if (bindingResult.hasErrors()) {
+            List<String> losServicios=repoServicio.findAllServicios();
+            modelo.addAttribute("servicio",losServicios);
             return "formularioEpisodios";
         }
         repoEpisodio.save(elEpisodio);
@@ -185,16 +203,50 @@ public class ControladorCRUD {
     }
 
     @PostMapping("insertarCitas")
-    public String insertarCita(@ModelAttribute("cita") Cita laCita, BindingResult bindingResult){
-        Paciente clie=new Paciente();
-        clie.setId(this.idepi);
-        laCita.setId(clie);
-        citaValidator.validate(laCita, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "formularioCitas";
-        }
-        repoCitas.save(laCita);
-        return "redirect:/paciente/citas?pacienteId="+this.idepi;
+    public String insertarCita(@ModelAttribute("cita") Cita laCita, BindingResult bindingResult,Model modelo){
+        if (this.idepi!=0){
+            Paciente clie=new Paciente();
+            clie.setId(this.idepi);
+            laCita.setId(clie);
+            citaValidator.validate(laCita, bindingResult);
+            if (bindingResult.hasErrors()) {
+                List<String> lasPrestaciones=repoPrestacion.findAllPrestaciones();
+                modelo.addAttribute("prestacion",lasPrestaciones);
+                List<String> losServicios=repoServicio.findAllServicios();
+                modelo.addAttribute("servicio",losServicios);
+                List<String> losMedicos=repoUsuario.findAllMedicos();
+                modelo.addAttribute("medico",losMedicos);
+                return "formularioCitas";
+            }
+            repoCitas.save(laCita);
+            if (misCitas==false){
+                return "redirect:/paciente/citas?pacienteId="+this.idepi;}
+            else  {
+                return "redirect:/paciente/misCitas";
+            }}
+        else{
+            int miCita=repoCitas.findIdByCita(idCita);
+            System.out.println("////////////////////"+miCita);
+            Paciente clie=new Paciente();
+            clie.setId(miCita);
+            laCita.setId(clie);
+            citaValidator.validate(laCita, bindingResult);
+            if (bindingResult.hasErrors()) {
+                List<String> lasPrestaciones=repoPrestacion.findAllPrestaciones();
+                modelo.addAttribute("prestacion",lasPrestaciones);
+                List<String> losServicios=repoServicio.findAllServicios();
+                modelo.addAttribute("servicio",losServicios);
+                List<String> losMedicos=repoUsuario.findAllMedicos();
+                modelo.addAttribute("medico",losMedicos);
+                return "formularioCitas";
+            }
+            repoCitas.save(laCita);
+            if (misCitas==false){
+                return "redirect:/paciente/citas?pacienteId="+this.idepi;}
+            else  {
+                return "redirect:/paciente/misCitas";
+            }}
+
     }
     @PostMapping("insertarUsuario")
     public String insertarUsuario(@ModelAttribute("usuario") Usuario elUsuario, BindingResult bindingResult){
@@ -226,6 +278,8 @@ public class ControladorCRUD {
         modelo.addAttribute("prestacion",lasPrestaciones);
         List<String> losServicios=repoServicio.findAllServicios();
         modelo.addAttribute("servicio",losServicios);
+        List<String> losMedicos=repoUsuario.findAllMedicos();
+        modelo.addAttribute("medico",losMedicos);
         return "formularioCitas";
     }
     @RequestMapping("muestraFormularioAgregar")
@@ -279,6 +333,7 @@ public class ControladorCRUD {
     public String muestraFormularioActualizar(@RequestParam("pacienteId") int Id,Model modelo){
         //Obtener paciente
         Paciente elPaciente=repoPaciente.getById(Id);
+
         //Obtener el paciente como atributo del modelo
         modelo.addAttribute("paciente",elPaciente);
         List<String> losPaises=repoPais.findAllPaises();
@@ -301,12 +356,15 @@ public class ControladorCRUD {
     public String muestraCitaActualizar(@RequestParam("citaId") int Id,Model modelo){
         //Obtener paciente
         Cita laCita=repoCitas.getById(Id);
+        idCita=Id;
         //Obtener el paciente como atributo del modelo
         modelo.addAttribute("cita",laCita);
         List<String> lasPrestaciones=repoPrestacion.findAllPrestaciones();
         modelo.addAttribute("prestacion",lasPrestaciones);
         List<String> losServicios=repoServicio.findAllServicios();
         modelo.addAttribute("servicio",losServicios);
+        List<String> losMedicos=repoUsuario.findAllMedicos();
+        modelo.addAttribute("medico",losMedicos);
         //enviar al formulario
         return "formularioCitas";
     }
@@ -366,4 +424,10 @@ public class ControladorCRUD {
 
     @Autowired
     private CitaValidator citaValidator;
+
+    private String currentDNI;
+
+    private boolean misCitas;
+
+    private int idCita;
 }

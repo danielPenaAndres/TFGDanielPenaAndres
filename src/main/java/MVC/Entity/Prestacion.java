@@ -25,6 +25,14 @@ public class Prestacion {
         this.descripcion = descripcion;
     }
 
+    public String getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(String servicio) {
+        this.servicio = servicio;
+    }
+
     @Override
     public String toString() {
         return "Prestacion{" +
@@ -38,5 +46,6 @@ public class Prestacion {
     private String idPrestacion;
     @Column(name = "descripcion")
     private String descripcion;
-
+    @Column(name = "servicio")
+    private String servicio;
 }

@@ -25,4 +25,6 @@ public interface IPacienteRepo extends JpaRepository<Paciente, Integer> {
     Paciente findByDNI(String DNI);
 
 
+
+
 }

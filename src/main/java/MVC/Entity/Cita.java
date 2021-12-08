@@ -3,6 +3,7 @@ package MVC.Entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="cita")
@@ -26,11 +27,11 @@ public class Cita {
         this.id = id;
     }
 
-    public String getFechaDeCita() {
+    public Date getFechaDeCita() {
         return fechaDeCita;
     }
 
-    public void setFechaDeCita(String fechaDeCita) {
+    public void setFechaDeCita(Date fechaDeCita) {
         this.fechaDeCita = fechaDeCita;
     }
 
@@ -58,6 +59,14 @@ public class Cita {
         this.prestacion = prestacion;
     }
 
+    public String getMedico() {
+        return medico;
+    }
+
+    public void setMedico(String medico) {
+        this.medico = medico;
+    }
+
     @Override
     public String toString() {
         return "Cita{" +
@@ -77,13 +86,18 @@ public class Cita {
     @ManyToOne
     @JoinColumn(name = "id")
     private Paciente id;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     @Column(name = "fechaDeCita")
-    private String fechaDeCita;
+    private Date fechaDeCita;
+
     @Column(name = "observaciones")
     private String observaciones;
     @Column(name = "servicio")
     private String servicio;
     @Column(name = "prestacion")
     private String prestacion;
+    @Column(name = "medico")
+    private String medico;
 }

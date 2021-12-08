@@ -8,6 +8,7 @@ table{
     width: 75%;
     text-align: center;
     margin: auto;
+
 }
 .table-striped{
     width: 75%;
@@ -57,4 +58,9 @@ th,td{
     border-color: black !important;
     border: 2px solid black;
 
+}
+button:focus{
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
 }
