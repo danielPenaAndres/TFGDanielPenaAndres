@@ -1,19 +1,14 @@
 package MVC.validacionesPersonalizadas;
 
 
-import MVC.Entity.Cita;
 import MVC.Entity.Episodio;
 import MVC.Entity.Paciente;
 import MVC.repo.IEpisodioRepo;
-import MVC.repo.IPacienteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Component
 public class EpisodioValidator implements Validator {
@@ -28,11 +23,21 @@ public class EpisodioValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Episodio episodio = (Episodio) o;
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fechaDelEpisodio", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fechaInicioDelEpisodio", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "observaciones", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "servicio", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tipo", "NotEmpty");
         if (episodio.getServicio().equals("NONE")){
             errors.rejectValue("servicio", "NotEmpty");
         }
+        if (episodio.getTipo().equals("NONE")){
+            errors.rejectValue("tipo", "NotEmpty");
+        }
+
+        if (episodio.getFechaInicioDelEpisodio().after(episodio.getFechaFinDelEpisodio())){
+            errors.rejectValue("fechaInicioDelEpisodio", "badDate.episodio.fechaInicioDelEpisodio");
+        }
+
+
     }
 }

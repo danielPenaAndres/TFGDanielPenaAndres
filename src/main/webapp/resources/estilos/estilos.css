@@ -1,16 +1,20 @@
 body{
     background-color:#E3FFDD;
     text-align: center;
+    color: #070707;
 }
-h1{text-align: center}
+h1{text-align: center;
+    color: #070707;}
 
 table{
+    color: #070707;
     width: 75%;
     text-align: center;
     margin: auto;
 
 }
 .table-striped{
+    color: #070707;
     width: 75%;
     text-align: center;
     margin: auto;
@@ -57,10 +61,26 @@ table{
 th,td{
     border-color: black !important;
     border: 2px solid black;
+    color: #070707;
 
 }
-button:focus{
-    color: #fff;
-    background-color: #343a40;
-    border-color: #343a40;
+
+.btn-primary{
+    color: #070707;
+    background-color: #06AED5;
+}
+.btn-secondary{
+    color: #070707;
+    background-color: #A599B5;
+}
+.btn-danger{
+    color: #070707;
+    background-color: #BF211E;
+}
+.btn-success{
+    color: #070707;
+    background-color: #688E26;
+}
+.display-1{
+    color: #070707;
 }

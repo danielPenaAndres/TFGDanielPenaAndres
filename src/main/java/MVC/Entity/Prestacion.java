@@ -1,8 +1,12 @@
 package MVC.Entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="prestacion")
@@ -43,9 +47,17 @@ public class Prestacion {
 
     @Id
     @Column(name = "idPrestacion")
+    @NotNull
+    @NotEmpty
     private String idPrestacion;
     @Column(name = "descripcion")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String descripcion;
     @Column(name = "servicio")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String servicio;
 }

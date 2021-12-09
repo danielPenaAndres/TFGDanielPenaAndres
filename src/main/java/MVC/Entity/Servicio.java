@@ -1,6 +1,12 @@
 package MVC.Entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="servicio")
@@ -34,8 +40,13 @@ public class Servicio {
 
     @Id
     @Column(name = "idServicio")
+    @NotNull
+    @NotEmpty
     private String idServicio;
     @Column(name = "descripcion")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String descripcion;
 
 }

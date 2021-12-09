@@ -4,7 +4,8 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Table(name = "usuario")
 @Entity
@@ -61,18 +62,32 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @NotNull
+    @NotEmpty
     private int id;
     @Length(min = 2, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
     @Column(name = "clave")
     private String clave;
     @Column(name = "nombre")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String nombre;
     @Column(name = "apellidos")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String apellidos;
     @Column(name = "DNI")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String DNI;
     @Column(name = "tipo")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String tipo;
 
 

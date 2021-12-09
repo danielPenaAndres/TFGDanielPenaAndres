@@ -3,9 +3,10 @@ package MVC.Entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -64,11 +65,11 @@ public class Paciente {
         this.DNI = DNI;
     }
 
-    public String getFechaDeNacimiento() {
+    public Date getFechaDeNacimiento() {
         return fechaDeNacimiento;
     }
 
-    public void setFechaDeNacimiento(String fechaDeNacimiento) {
+    public void setFechaDeNacimiento(Date fechaDeNacimiento) {
         this.fechaDeNacimiento = fechaDeNacimiento;
     }
 
@@ -104,6 +105,8 @@ public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @NotNull
+    @NotEmpty
     private Integer id;
     @OneToMany(mappedBy = "id",
             fetch=FetchType.LAZY,
@@ -114,22 +117,40 @@ public class Paciente {
             cascade = CascadeType.ALL)
     private Set<Cita> citas = new HashSet<>();
     @Column(name = "nombre")
+    @NotNull
+    @Size(min = 1, max = 100)
     @NotEmpty(message = "*Por favor escriba un usuario")
     private String nombre;
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 200)
     @Column(name = "apellidos")
     private String apellidos;
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 15)
     @NotEmpty(message = "*Por favor escriba un DNI")
     @Column(name = "DNI")
     private String DNI;
-    @DateTimeFormat(pattern="dd.MM.yyyy")
+    @NotNull
+    @NotEmpty
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     @Column(name = "fechaDeNacimiento")
-    private String fechaDeNacimiento;
+    private Date fechaDeNacimiento;
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 15)
     @Column(name = "sexo")
     private String sexo;
-   @Column(name = "pais")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 60)
+    @Column(name = "pais")
     private String pais;
-    @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email")
+    @Email(message = "*Introduzca un email valido")
+    @NotEmpty(message = "*Introduzca un email valido")
+    @Size(min = 1, max = 255)
     @Column(name = "email")
     private String email;
 

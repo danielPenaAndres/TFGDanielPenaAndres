@@ -21,9 +21,11 @@
         <c:choose>
             <c:when test="${episodios.size() > 0 }">
                 <tr>
-                    <th>Fecha del episodio</th>
+                    <th>Fecha de inicio del episodio</th>
+                    <th>Fecha de fin del episodio</th>
                     <th>Observaciones</th>
                     <th>Servicio</th>
+                    <th>Tipo</th>
                 </tr>
             </c:when>
 
@@ -43,9 +45,11 @@
             <c:param name="episodioId" value="${episodioTemp.codEpisodio}"/>
         </c:url>
         <tr>
-            <td>${episodioTemp.fechaDelEpisodio}</td>
+            <td>${episodioTemp.fechaInicioDelEpisodio}</td>
+            <td>${episodioTemp.fechaFinDelEpisodio}</td>
             <td>${episodioTemp.observaciones}</td>
             <td>${episodioTemp.servicio}</td>
+            <td>${episodioTemp.tipo}</td>
             <td><a href="${linkActualizar}" ><input type="button" class="btn btn-outline-dark" value="Modificar"/></a> </td>
             <td><a href="${linkEliminar}" ><input type="button" class="btn btn-outline-dark" value="Eliminar" onclick="if (!(confirm('¿Estas seguro en elimar el registro?'))) return false"/></a> </td>
         </tr>

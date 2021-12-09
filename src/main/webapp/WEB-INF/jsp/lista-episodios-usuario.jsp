@@ -20,9 +20,11 @@
         <c:choose>
             <c:when test="${episodios.size() > 0 }">
                 <tr>
-                    <th>Fecha del episodio</th>
+                    <th>Fecha de inicio del episodio</th>
+                    <th>Fecha de fin del episodio</th>
                     <th>Observaciones</th>
                     <th>Servicio</th>
+                    <th>Tipo</th>
                 </tr>
             </c:when>
 
@@ -34,9 +36,11 @@
         </c:choose>
     <c:forEach var="episodioTemp" items="${episodios}">
         <tr>
-            <td>${episodioTemp.fechaDelEpisodio}</td>
+            <td>${episodioTemp.fechaInicioDelEpisodio}</td>
+            <td>${episodioTemp.fechaFinDelEpisodio}</td>
             <td>${episodioTemp.observaciones}</td>
             <td>${episodioTemp.servicio}</td>
+            <td>${episodioTemp.tipo}</td>
       </tr>
     </c:forEach>
 

@@ -21,13 +21,22 @@
         <h1>Episodio: ${episodio.codEpisodio}</h1>
     </c:if>
     <form:hidden path="codEpisodio"/>
-    <spring:bind path="fechaDelEpisodio">
+    <spring:bind path="fechaInicioDelEpisodio">
         <div class="form-group ${status.error ? 'has-error' : ''}">
-            <form:input type="date" path="fechaDelEpisodio" class="form-control" placeholder="Fecha del Episodio"
+            <form:input type="date" path="fechaInicioDelEpisodio" class="form-control" placeholder="Fecha de inicio del episodio"
                         autofocus="true"></form:input>
-            <form:errors path="fechaDelEpisodio"></form:errors>
+            <form:errors path="fechaInicioDelEpisodio"></form:errors>
         </div>
     </spring:bind>
+
+    <spring:bind path="fechaFinDelEpisodio">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="date" path="fechaFinDelEpisodio" class="form-control" placeholder="Fecha de fin del episodio"
+                        autofocus="true"></form:input>
+            <form:errors path="fechaFinDelEpisodio"></form:errors>
+        </div>
+    </spring:bind>
+
     <spring:bind path="observaciones">
         <div class="form-group ${status.error ? 'has-error' : ''}">
             <form:input type="text" path="observaciones" class="form-control" placeholder="Observaciones"
@@ -47,11 +56,24 @@
         </div>
     </spring:bind>
 
+    <spring:bind path="tipo">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:select id="tipo" name="tipo" type="text" path="tipo" class="form-control" placeholder="Tipo"
+                         autofocus="true">
+                <option value="NONE">--- Seleccionar el tipo del episodio ---</option>
+                <option value="AMB">Ambulatorio</option>
+                <option value="URG">Urgencias</option>
+                <option value="HOSP">Hospitalización</option></form:select>
+            <form:errors path="tipo"></form:errors>
+        </div>
+    </spring:bind>
+
+
     </br>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
 </form:form>
 <form class="HOME" action="<c:url value="/paciente/lista" />" method="GET">
-    <input type="submit" name="action" value="HOME" />
+    <input type="submit" class="btn btn-success" name="action" value="HOME" />
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>

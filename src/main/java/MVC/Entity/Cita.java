@@ -3,6 +3,9 @@ package MVC.Entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -82,6 +85,8 @@ public class Cita {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "codCita")
+    @NotNull
+    @NotEmpty
     private Integer codCita;
     @ManyToOne
     @JoinColumn(name = "id")
@@ -90,14 +95,28 @@ public class Cita {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     @Column(name = "fechaDeCita")
+    @NotNull
+    @NotEmpty
     private Date fechaDeCita;
 
     @Column(name = "observaciones")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String observaciones;
     @Column(name = "servicio")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String servicio;
     @Column(name = "prestacion")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String prestacion;
     @Column(name = "medico")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String medico;
 }

@@ -1,10 +1,9 @@
 package MVC.Entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="pais")
@@ -58,12 +57,23 @@ public class Pais {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "codigo")
+    @NotNull
+    @NotEmpty
     private int codigo;
     @Column(name = "descripcion")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String descripcion;
     @Column(name = "gentilicio")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String gentilicio;
     @Column(name = "ISO")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String ISO;
 
 
