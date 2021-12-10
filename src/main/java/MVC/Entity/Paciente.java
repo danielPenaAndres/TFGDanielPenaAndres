@@ -103,7 +103,8 @@ public class Paciente {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "paciente_generator")
+    @SequenceGenerator(name = "paciente_generator", sequenceName = "paciente_seq", allocationSize = 1)
     @Column(name = "id")
     @NotNull
     @NotEmpty

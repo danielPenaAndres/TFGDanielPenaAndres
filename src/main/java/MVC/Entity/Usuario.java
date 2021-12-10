@@ -60,7 +60,8 @@ public class Usuario {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_generator")
+    @SequenceGenerator(name = "usuario_generator", sequenceName = "usuario_seq", allocationSize = 1)
     @Column(name = "id")
     @NotNull
     @NotEmpty

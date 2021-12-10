@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface IPaisRepo extends JpaRepository<Pais,String> {
 
-    @Query("SELECT DISTINCT p.descripcion from Pais p")
+    @Query("SELECT DISTINCT p.descripcion from Pais p order by p.descripcion asc")
     List<String> findAllPaises();
 }

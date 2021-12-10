@@ -83,7 +83,8 @@ public class Cita {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cita_generator")
+    @SequenceGenerator(name = "cita_generator", sequenceName = "cita_seq", allocationSize = 1)
     @Column(name = "codCita")
     @NotNull
     @NotEmpty

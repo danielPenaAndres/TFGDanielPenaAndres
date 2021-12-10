@@ -55,7 +55,8 @@ public class Pais {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pais_generator")
+    @SequenceGenerator(name = "pais_generator", sequenceName = "pais_seq", allocationSize = 1)
     @Column(name = "codigo")
     @NotNull
     @NotEmpty

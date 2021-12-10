@@ -84,7 +84,8 @@ public class Episodio {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "episodio_generator")
+    @SequenceGenerator(name = "episodio_generator", sequenceName = "episodio_seq", allocationSize = 1)
     @Column(name = "codEpisodio")
     @NotNull
     private Integer codEpisodio;
