@@ -1,9 +1,12 @@
 package MVC.Controller;
 
 
-import MVC.Entity.*;
-import MVC.Service.PacienteService;
+import MVC.Entity.Cita;
+import MVC.Entity.Episodio;
+import MVC.Entity.Paciente;
+import MVC.Entity.Usuario;
 import MVC.Service.EpisodioService;
+import MVC.Service.PacienteService;
 import MVC.Service.UserService;
 import MVC.repo.*;
 import MVC.validacionesPersonalizadas.CitaValidator;
@@ -12,7 +15,6 @@ import MVC.validacionesPersonalizadas.PacienteValidator;
 import MVC.validacionesPersonalizadas.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +24,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -196,6 +197,8 @@ public class ControladorCRUD {
         if (bindingResult.hasErrors()) {
             List<String> losServicios=repoServicio.findAllServicios();
             modelo.addAttribute("servicio",losServicios);
+            List<String> losDiagnosticos=repoDiagnostico.findAllDiagnosticos();
+            modelo.addAttribute("diagnostico",losDiagnosticos);
             return "formularioEpisodios";
         }
         repoEpisodio.save(elEpisodio);
@@ -267,6 +270,8 @@ public class ControladorCRUD {
         modelo.addAttribute("episodio",elEpisodio);
         List<String> losServicios=repoServicio.findAllServicios();
         modelo.addAttribute("servicio",losServicios);
+        List<String> losDiagnosticos=repoDiagnostico.findAllDiagnosticos();
+        modelo.addAttribute("diagnostico",losDiagnosticos);
         return "formularioEpisodios";
     }
     @RequestMapping("muestraFormularioCita")
@@ -349,6 +354,8 @@ public class ControladorCRUD {
         modelo.addAttribute("episodio",elEpisodio);
         List<String> losServicios=repoServicio.findAllServicios();
         modelo.addAttribute("servicio",losServicios);
+        List<String> losDiagnosticos=repoDiagnostico.findAllDiagnosticos();
+        modelo.addAttribute("diagnostico",losDiagnosticos);
         //enviar al formulario
         return "formularioEpisodios";
     }
@@ -394,6 +401,9 @@ public class ControladorCRUD {
 
     @Autowired
     private IPaisRepo repoPais;
+
+    @Autowired
+    private IDiagnosticoRepo repoDiagnostico;
 
     @Autowired
     private IServicioRepo repoServicio;
