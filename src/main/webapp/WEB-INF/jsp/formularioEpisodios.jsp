@@ -67,7 +67,16 @@
             <form:errors path="tipo"></form:errors>
         </div>
     </spring:bind>
-
+    <spring:bind path="diagnostico">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:select id="diagnostico" name="diagnostico" type="text" path="diagnostico" class="form-control" placeholder="Diagnostico"
+                         autofocus="true">
+                <form:option value="NONE" label="--- Selecciona un diagnostico ---"/>
+                <form:options items="${diagnostico}" />
+            </form:select>
+            <form:errors path="diagnostico"></form:errors>
+        </div>
+    </spring:bind>
 
     </br>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>

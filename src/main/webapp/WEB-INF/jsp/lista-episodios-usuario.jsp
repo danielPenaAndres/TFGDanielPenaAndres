@@ -25,6 +25,7 @@
                     <th>Observaciones</th>
                     <th>Servicio</th>
                     <th>Tipo</th>
+                    <th>Diagnostico</th>
                 </tr>
             </c:when>
 
@@ -41,6 +42,7 @@
             <td>${episodioTemp.observaciones}</td>
             <td>${episodioTemp.servicio}</td>
             <td>${episodioTemp.tipo}</td>
+            <td>${episodioTemp.diagnostico}</td>
       </tr>
     </c:forEach>
 

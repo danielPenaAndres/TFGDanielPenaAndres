@@ -70,6 +70,14 @@ public class Episodio {
         this.tipo = tipo;
     }
 
+    public String getDiagnostico() {
+        return diagnostico;
+    }
+
+    public void setDiagnostico(String diagnostico) {
+        this.diagnostico = diagnostico;
+    }
+
     @Override
     public String toString() {
         return "Episodio{" +
@@ -119,4 +127,9 @@ public class Episodio {
     @Size(min = 1, max = 50)
     @Column(name = "tipo")
     private String tipo;
+    @Column(name = "diagnostico")
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 255)
+    private String diagnostico;
 }
