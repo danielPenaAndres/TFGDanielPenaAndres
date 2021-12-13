@@ -1,9 +1,6 @@
 package MVC.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -38,6 +35,8 @@ public class Diagnostico {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diagnostico_generator")
+    @SequenceGenerator(name = "diagnostico_generator", sequenceName = "diagnostico_seq", allocationSize = 1)
     @Column(name = "idDiagnostico")
     @NotNull
     @NotEmpty
