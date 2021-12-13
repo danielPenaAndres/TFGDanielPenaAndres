@@ -24,17 +24,19 @@ public class EpisodioValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Episodio episodio = (Episodio) o;
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fechaInicioDelEpisodio", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fechaFinDelEpisodio", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "observaciones", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "servicio", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tipo", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "diagnostico", "NotEmpty");
+
         if (episodio.getServicio().equals("NONE")){
             errors.rejectValue("servicio", "NotEmpty");
         }
         if (episodio.getTipo().equals("NONE")){
             errors.rejectValue("tipo", "NotEmpty");
         }
-        if (episodio.getTipo().equals("NONE")){
+        if (episodio.getDiagnostico().equals("NONE")){
             errors.rejectValue("diagnostico", "NotEmpty");
         }
         if (episodio.getFechaInicioDelEpisodio().after(episodio.getFechaFinDelEpisodio())){
